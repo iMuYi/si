@@ -1,0 +1,239 @@
+!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="/static/lib/css/style.css" media="screen" type="text/css" />
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
+	<script type="text/javascript" src="/static/lib/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/lib/js/action.js"></script>
+    <!--<script type="text/javascript" src="js/changeMore.js">--></script>
+    <script>
+            $.ajaxSetup({
+             data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+    </script>
+    <title></title>
+</head>
+
+<body>
+<div class="top">
+    <div class="menuAct">
+	<a href="/classify/search/" >地图模式</a>
+    </div>
+    <div class="menu">
+	<a href="/classify/userTrack/" >个人轨迹</a>
+    </div>
+    <div class="menu">
+	<a href="data.html">数据查询</a>
+    </div>
+    <ul class="rmenu">
+    	<li onClick="refreshMap()"><a href="#">刷新地图</a></li>
+    	<li onClick="timeChoose()"><a href="#">历史</a></li>
+        <li onClick="otherChoose()"><a href="#">精炼</a></li>
+    </ul>
+</div>
+    
+<div class="info">
+    <ul>
+    <li><a href="#">覆盖率：</a> </li><br/>
+    <li><a href="#">掉话率：</a></li><br/>
+    <li><a href="#">平均传输速率：</a></li><br/>
+    <li><a href="#">误帧率：</a></li>
+    </ul>
+</div>
+    <!--弹出框时地图蒙上一层-->
+	<div id="ly" class="ly"></div>
+    <!--浮层框架开始      -->
+	<div id="tchoose" class="tchoose" >
+        <table width="300" height="200" border="0" cellpadding="0" cellspacing="0" style="border: 0 solid #e7e3e7;border-collapse: collapse ;" >
+            <tr>
+                <td style="background-color: #73A2d6; color: #fff; padding-left: 4px; padding-top: 2px;font-weight: bold; font-size: 12px;" height="10" valign="middle">
+                 <div align="right"><a href=JavaScript:; onclick="Lock_CheckForm(this);">×</a> &nbsp;&nbsp;&nbsp;</div>
+                 </td>
+            </tr>
+            <tr>
+                <td height="130" style="align:center; ">
+                <ul>
+                	<li style="margin-left:30px;margin-bottom:10px;"><a href="#">开始&nbsp;&nbsp;<input type="text" name="startTime" id="startTime"  value="" onclick="setDayHM(this);" readOnly="readOnly" /></a></li>
+      				<li style="margin-left:30px;"><a href="#">结束&nbsp;&nbsp;<input type="text" id="endTime" name="endTime" onclick="setDayHM(this);" readOnly="readOnly" /></a><script src="/static/lib/js/setDate.js"></script>
+      </li>
+      		   </ul>
+      			<input type="button" class="butcenter" value="确定" id="search" name="search" onClick=getData() />             
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <!--精炼的弹出框-->
+     <div id="ochoose" class="ochoose" >
+        <table width="300" border="0" cellpadding="0" cellspacing="0" style="border: 0    solid    #e7e3e7;border-collapse: collapse ;" >
+            <tr>
+                <td style="background-color: #73A2d6; color: #fff; padding-left: 4px; padding-top: 2px;font-weight: bold; font-size: 12px;" height="22px" valign="middle">
+                 <div align="right"><a href=JavaScript:; onclick="Lock_CheckForm(this);">×</a> &nbsp;&nbsp;&nbsp;</div>
+                 </td>
+            </tr>
+            <tr>
+                <td height="200" style="align:center;" >          
+     			<ul>
+                	<li><a href="#">
+						<form>运营商：
+							<input type="checkbox"  name="operator" value="移动" />移动
+							<input type="checkbox" name="operator" value="联通" />联通
+							<input type="checkbox" name="operator" value="电信" />电信
+						</form></a></li>
+					<li><a href="#">
+						<form>通信技术:
+							<input type="checkbox"  name="comTech" value="2G" />2G
+							<input type="checkbox" name="comTech" value="3G" />3G
+							<input type="checkbox" name="comTech" value="4G" />4G
+						</form></a></li>
+			    </ul>
+      			<input type="button" class="butcenter" value="确定" id="search" name="search" onclick=search_o() style="margin-top:15px;margin-bottom:13px;" />             </td>
+            </tr>
+        </table>
+    </div>
+
+<div id="map"></div>
+<script>
+ $(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+
+	var map = new BMap.Map("map",{minZoom:15,maxZoom:19});          // 创建地图实例
+    var pt_center = new BMap.Point(116.365247,39.969982);
+    map.centerAndZoom(pt_center,19 );             // 初始化地图，设置中心点坐标和地图级别
+    map.disableScrollWheelZoom(); // 允许滚轮缩放
+	
+	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+	map.addControl(top_left_control);  //添加控件和比例尺     
+	map.addControl(top_left_navigation); 
+
+
+<!--用添加文本标签的方法添加方块-->
+
+function getData()
+{	
+	map.clearOverlays();  
+	
+	var zoomis =map.getZoom();
+	var length="";
+	switch(zoomis)
+	{case 19:
+		length="32px";
+		break;
+	case 18:
+		length="16px";
+		break;
+	case 17:
+		length="16px";
+		break;
+	case 16:
+		length="8px";
+		break;
+	case 15:
+		length="8px";
+		break;
+		}
+
+	var	d = new Date();
+	alert(d)
+
+	startTime = d.getFullYear() + addZero((d.getMonth() + 1))+addZero(d.getDate())+addZero(d.getHours()-1)+ addZero(d.getMinutes());//默认显示前
+	endTime =  d.getFullYear() + addZero((d.getMonth() + 1))+addZero(d.getDate())+addZero(d.getHours())+ addZero(d.getMinutes());
+	alert(startTime)
+
+	
+	//获取地图可视区域
+    var bs = map.getBounds();   //获取可视区域
+	var bssw = bs.getSouthWest();   //可视区域左下角
+	var bsne = bs.getNorthEast();   //可视区域右上角
+	var lng1 = bssw.lng
+	var lat1 = bssw.lat
+	var lng2 = bsne.lng
+	var lat2 = bsne.lat
+
+
+	//将下面的数据传给服务器
+	$.post("/classify/getSignalInfo/",
+	   {"startTime":startTime,
+	   	"endTime":endTime,
+		"zoom":zoomis,
+		"lng1":lng1,		//bssw.lng,bssw.lat
+	    "lng2":lng2,
+		"lat1":lat1,
+		"lat2":lat2
+		},function(data, status) {
+          var obj = jQuery.parseJSON(data);
+	//服务器返回相应的数据，处理添加到地图上
+		  for(var i=0;i<obj.data.length;i++){
+				var myLabel = new BMap.Label("",     //为lable填写内容
+               		{position:new BMap.Point(obj.data[i].Longitude,obj.data[i].Latitude)});           //label的位置
+					myLabel.setStyle({       //给label设置样式，任意的CSS都是可以的
+  		    		height:length ,                //高度
+    				width:length,                 //宽
+					opacity:"0.2"			//透明度
+					}); 
+				//根据信号强度不同设置不同颜色
+				if(obj.data[i].RSRP<=-105){ 
+					myLabel.setStyle({background:"red", }); 
+				}
+				else if(obj.data[i].RSRP<=-95) {   
+					myLabel.setStyle({background:"#f60",});    
+				}
+				else if(obj.data[i].RSRP<=-85) {   	
+					myLabel.setStyle({background:"yellow",});            	}
+				else if(obj.data[i].RSRP<=-75) {   
+					myLabel.setStyle({background:"#3f3",});                }
+				else if(obj.data[i].RSRP<=-65) {   
+					myLabel.setStyle({background:"#3ff",});                }
+				else  {   
+					myLabel.setStyle({background:"#36f",});                 }
+ 				map.addOverlay(myLabel);
+		  };
+	});
+}	
+
+map.addEventListener("tilesloaded", getData);
+//map.addEventListener("zoomend", getData);
+//map.addEventListener("moveend", getData);
+	
+
+</script>
+</body>
+</html>

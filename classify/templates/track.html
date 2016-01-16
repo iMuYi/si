@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="/static/lib/css/style.css" media="screen" type="text/css" />
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
+	<script type="text/javascript" src="/static/lib/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/lib/js/action.js"></script>
+    <script>
+            $.ajaxSetup({
+             data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+
+    </script>
+    <title></title>
+</head>
+
+<body>
+<div class="top">
+    <div class="menu">
+	<a href="/classify/search/" >地图模式</a>
+    </div>
+    <div class="menuAct">
+	<a href="/classify/userTrack/" >个人轨迹</a>
+    </div>
+    <div class="menu">
+	<a href="data.html">数据查询</a>
+    </div>
+    <ul class="rmenu">
+        <li onClick="userChoose()"><a href="#">选择</a></li>
+    </ul>
+</div>
+    
+
+    <!--弹出框时地图蒙上一层-->
+	<div id="ly" class="ly"></div>
+    <!--浮层框架开始      -->
+    <!--精炼的弹出框-->
+     <div id="uchoose" class="uchoose" >
+        <table width="290" border="0" cellpadding="0" cellspacing="0" style="border: 0    solid    #e7e3e7;border-collapse: collapse ;" >
+            <tr>
+                <td style="background-color: #73A2d6; color: #fff; padding-left: 4px; padding-top: 2px;font-weight: bold; font-size: 12px;" height="22px" valign="middle">
+                 <div align="right"><a href=JavaScript:; onclick="uLock_CheckForm(this);">×</a> &nbsp;&nbsp;&nbsp;</div>
+                 </td>
+            </tr>
+            <tr>
+                <td height="200" style="align:center;" >          
+                 <ul>
+                	<li style="margin-left:30px;">        
+	  				<select id="idType" name="idType" style="width:90px;" onchange=showSelect(this.value)> 
+					<option value=userID selected>用户ID</option> 
+                    <option value=phonenum>手机号码</option>
+                    <option value=IMEI>IMEI</option>
+                    </select>&nbsp;&nbsp;  
+					<input type="text" id="idValue" name="idValue"  style="width:100px;" />
+  					</li>
+                    <li style="margin-left:30px;margin-bottom:10px;"><a href="#">开始&nbsp;&nbsp;<input type="text" name="startTimeU" id="startTimeU"  value="" onclick="setDayHM(this);" readOnly="readOnly" /></a></li>
+      				<li style="margin-left:30px;"><a href="#">结束&nbsp;&nbsp;<input type="text" id="endTimeU" name="endTimeU" onclick="setDayHM(this);" readOnly="readOnly" /></a><script src="/static/lib/js/setDate.js"></script>
+			   </ul>	
+      			<input type="button"  value="确定" id="search" name="search" onclick=userTrack() style="margin-top:20px;margin-left:20%;" /> 
+                <input type="button" class="but" value="重置" id="reset" name="reset" onclick=clearUchoose() style="margin-top:20px;margin-left:20%;" />             </td>
+            </tr>
+        </table>      
+    </div>
+    
+   
+    
+<div id="map"></div>
+<script>
+$(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+</script>
+<script>
+ 	var map = new BMap.Map("map",{minZoom:15,maxZoom:19});          // 创建地图实例
+ 
+ 	map.centerAndZoom(new BMap.Point(116.365247,39.969982), 17);
+	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+	map.addControl(top_left_control);  //添加控件和比例尺     
+	map.addControl(top_left_navigation); 
+	map.disableScrollWheelZoom(); 
+<!--轨迹 -->
+function userTrack()
+{	
+	document.all.ly.style.display='none';
+	document.all.uchoose.style.display='none';
+
+	var d1=document.getElementById("startTimeU").value;
+	var d2=document.getElementById("endTimeU").value;
+  	var	d = new Date();
+  	var	dn = d.getFullYear()+ "-"+addZero((d.getMonth() + 1)) + "-"+addZero(d.getDate())+ " "+addZero(d.getHours())+ ":"+addZero(d.getMinutes());//+addZero(d.getSeconds());//当前时间
+	if(d1&&d2!=""){	
+	    if(d1>dn||d2>dn){
+				alert("设置时间晚于当前时间请重新设置！");
+		}     
+   		else if(d1!=""&&d1>=d2){
+				alert("结束时间早于开始时间请重新设置！");
+		} 	
+		else{
+			d1=d1.replace(/-/g,"");
+			d1=d1.replace(/ /,"");
+			startTime=d1.replace(/:/,"");
+			d2=d2.replace(/-/g,"");
+			d2=d2.replace(/ /,"");
+			endTime=d2.replace(/:/,"");
+		}
+	}
+	else {
+	 var  startTime = d.getFullYear() + addZero((d.getMonth() + 1))+addZero(d.getDate())+addZero(d.getHours()-1)+ addZero(d.getMinutes());//默认显示前
+	 var endTime =  d.getFullYear() + addZero((d.getMonth() + 1))+addZero(d.getDate())+addZero(d.getHours())+ addZero(d.getMinutes());			
+	}
+	//alert(startTime +"到" +endTime);
+	var idType=document.getElementById("idType").value;//userID,phonenum,IMEI 三种
+	var idValue=document.getElementById("idValue").value;
+	
+	
+	$.post("/classify/getUserInfo/",
+	   {"startTime":startTime,
+	   	"endTime":endTime,
+		"idType":idType,
+		"idValue":idValue
+		},function(data, status) {
+ 			var obj = jQuery.parseJSON(data);
+	//服务器返回相应的数据，处理添加到地图上
+			map.centerAndZoom(new BMap.Point(obj.data[0].Longitude,obj.data[0].Latitude), 17);
+		  	for(var i=0;i<obj.data.length-1;i++){
+			  	if(obj.data[i].RSRP<=-105){ 
+					color="red"; 
+				}
+				else if(obj.data[i].RSRP<=-95) {   
+					color="#f60" ;   
+				}
+				else if(obj.data[i].RSRP<=-85) {   	
+					color="yellow";            	}
+				else if(obj.data[i].RSRP<=-75) {   
+					color="#3f3";               }
+				else if(obj.data[i].RSRP<=-65) {   
+					color="#3ff";                }
+				else  {   
+					color="#36f";                 }
+		  		var polyline = new BMap.Polyline([  new BMap.Point(obj.data[i].Longitude,obj.data[i].Latitude) ,  new BMap.Point(obj.data[i+1].Longitude,obj.data[i+1].Latitude) 
+ ], {strokeColor:color, strokeWeight:6, strokeOpacity:0.7});    
+				map.addOverlay(polyline);
+		  }
+	});
+}
+</script>
+</body>
+</html>
