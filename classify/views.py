@@ -124,53 +124,62 @@ def index(req):
 def searchMap(request):
     return render(request,'map.html')
 
-def tmp():
-# def complateData(data_tmp):
-#     d_tmp = []
-#     mapdata = mapdis.getMap()
-#     for i in range(1,len(data_tmp)):
-#         
-#         if data_tmp[i+1]['Latitude'] != data_tmp[i]['Latitude'] and data_tmp[i+1]['Longitude'] != data_tmp[i]['Longitude']:
-#             if (data_tmp[i+1]['Latitude'],data_tmp[i]['Longitude']) in mapdata:
-#                 tmp = {'Longitude':data_tmp[i]['Longitude'],
-#                        'Latitude':data_tmp[i]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'l'
-#                        }
-#                 d_tmp.append(tmp)
-#                 tmp = {'Longitude':data_tmp[i]['Longitude'],
-#                        'Latitude':data_tmp[i+1]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'l'
-#                        }
-#                 d_tmp.append(tmp)
-#             elif (data_tmp[i]['Latitude'],data_tmp[i+1]['Longitude']) in mapdata:
-#                 tmp = {'Longitude':data_tmp[i]['Longitude'],
-#                        'Latitude':data_tmp[i]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'l'
-#                        }
-#                 d_tmp.append(tmp)
-#                 tmp = {'Longitude':data_tmp[i+1]['Longitude'],
-#                        'Latitude':data_tmp[i]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'l'
-#                        }
-#                 d_tmp.append(tmp)
-#             else:
-#                 tmp = {'Longitude':data_tmp[i]['Longitude'],
-#                        'Latitude':data_tmp[i]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'nl'
-#                        }
-#                 d_tmp.append(tmp)
-#         else: 
-    return 0
+#def tmp():
+def complateData(data_tmp):
+    d_tmp = []
+    mapdata = mapdis.getMap()
+    print mapdata
+    for i in range(1,len(data_tmp)-1):
+         if data_tmp[i+1]['Latitude'] != data_tmp[i]['Latitude'] and data_tmp[i+1]['Longitude'] != data_tmp[i]['Longitude']:
+             if (data_tmp[i+1]['Latitude'],data_tmp[i]['Longitude']) in mapdata:
+                 tmp = {'Longitude':data_tmp[i]['Longitude'],
+                        'Latitude':data_tmp[i]['Latitude'],
+                        'RSRP':data_tmp[i]['RSRP'],
+                        'time':data_tmp[i]['time'],
+                        'style':'l'
+                        }
+                 d_tmp.append(tmp)
+                 tmp = {'Longitude':data_tmp[i]['Longitude'],
+                        'Latitude':data_tmp[i+1]['Latitude'],
+                        'RSRP':data_tmp[i]['RSRP'],
+                        'time':data_tmp[i]['time'],
+                        'style':'l'
+                        }
+                 d_tmp.append(tmp)
+             elif (data_tmp[i]['Latitude'],data_tmp[i+1]['Longitude']) in mapdata:
+                 tmp = {'Longitude':data_tmp[i]['Longitude'],
+                       'Latitude':data_tmp[i]['Latitude'],
+                       'RSRP':data_tmp[i]['RSRP'],
+                       'time':data_tmp[i]['time'],
+                       'style':'l'
+                       }
+                 d_tmp.append(tmp)
+                 tmp = {'Longitude':data_tmp[i+1]['Longitude'],
+                        'Latitude':data_tmp[i]['Latitude'],
+                        'RSRP':data_tmp[i]['RSRP'],
+                        'time':data_tmp[i]['time'],
+                        'style':'l'
+                        }
+                 d_tmp.append(tmp)
+                 print 'zhuanzhe'
+             else:
+                 tmp = {'Longitude':data_tmp[i]['Longitude'],
+                        'Latitude':data_tmp[i]['Latitude'],
+                        'RSRP':data_tmp[i]['RSRP'],
+                        'time':data_tmp[i]['time'],
+                        'style':'nl'
+                        }
+                 d_tmp.append(tmp)
+                 print 'buzhuan'
+         else:
+             tmp = {'Longitude':data_tmp[i]['Longitude'],
+                    'Latitude':data_tmp[i]['Latitude'],
+                    'RSRP':data_tmp[i]['RSRP'],
+                    'time':data_tmp[i]['time'],
+                    'style':'l'
+                    }
+             d_tmp.append(tmp)
+    return d_tmp
 
 def lablink(startTime, endTime, idValue, signal):
         data_tmp = []
@@ -224,6 +233,8 @@ def lablink(startTime, endTime, idValue, signal):
                                 'time': GetTime,
                               }
                         data_tmp.append(tmp)
+        print(data_tmp)
+        data_tmp = complateData(data_tmp)
         return data_tmp
 
 def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, flag):
