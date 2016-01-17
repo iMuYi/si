@@ -231,9 +231,9 @@ def getXMap():
             i += 1
     return finalMap
 
-def findWay(i,j):
+def findWay(way,startpoint,destination,no):
     a1 = [12,13,14]
-    a2 = [12,13,14]
+    a2 = [12,13,14,15]
     a3 = [12,13,14]
     a4 = [12,13,14,15]
     a5 = [14,15]
@@ -250,13 +250,36 @@ def findWay(i,j):
     a16 = [6,7,8]
     a17 = [6,7,8,9,10]
     a18 = [6,10,11,8]
-    a = [a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18]
+    a = [0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18]
+    choices = a[way[-1]]
+    #print choices
+    print way
+    allway = []
+    no = no + 1
+    for i in range(0,len(choices)):
+        if choices[i] not in way:
+            print '%d step,turn %d'%(no,choices[i])
+            way.append(choices[i])
+            if choices[i] != destination and destination not in way:
+                findWay(way,startpoint,destination,no)
+            if destination in way:
+                print 'got it '
+                print way
+                allway.append(way)
+                return way
+            way.remove(choices[i])
+            return way
 
 
+            # elif no >= 5:
+            #     print 'lose it'
+            #     way = [startpoint,destination]
+            #     return way
 
 
+startpoint = 1
+destinaton = 5
+way = []
+way.append(startpoint)
 
-
-
-print getFinalMap()
-print getXMap()
+findWay(way,startpoint,destinaton,1)
