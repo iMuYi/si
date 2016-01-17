@@ -14,6 +14,8 @@ from django.views.decorators.csrf import csrf_protect
 # Create your views here.
 from classify import mapdis
 
+from classify import DATA
+
 class UserForm(forms.Form):
     userName = forms.CharField(label='userName',max_length=30)
     password = forms.CharField(label='password',widget=forms.PasswordInput())
@@ -128,8 +130,8 @@ def searchMap(request):
 def complateData(data_tmp):
     d_tmp = []
     mapdata = mapdis.getMap()
-    print mapdata
-    for i in range(1,len(data_tmp)-1):
+    #print mapdata
+    for i in range(0,len(data_tmp)-1):
          if data_tmp[i+1]['Latitude'] != data_tmp[i]['Latitude'] and data_tmp[i+1]['Longitude'] != data_tmp[i]['Longitude']:
              if (data_tmp[i+1]['Latitude'],data_tmp[i]['Longitude']) in mapdata:
                  tmp = {'Longitude':data_tmp[i]['Longitude'],
@@ -233,8 +235,9 @@ def lablink(startTime, endTime, idValue, signal):
                                 'time': GetTime,
                               }
                         data_tmp.append(tmp)
-        print(data_tmp)
+        #data_tmp2 = DATA.changedData()
         data_tmp = complateData(data_tmp)
+        #print(data_tmp)
         return data_tmp
 
 def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, flag):
@@ -328,6 +331,16 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
                     tmpFlag = 1
             if tmpFlag == 1:
                 break
+    #calculate the mean of each operator
+    for i in range(0,3):
+        if userNum[i] != 0:
+            meanRSRP[i] = meanRSRP[i]/userNum[i]
+            meanRSRP[i] = float('%0.5f'%meanRSRP[i])
+            meanRx[i] = meanRx[i]/userNum[i]
+            meanRx[i] = float('%0.5f'%meanRx[i])
+            meanTx[i] = meanTx[i]/userNum[i]
+            meanTx[i] = float('%0.5f'%meanTx[i])
+
 #######################################
     #calculate the mean of each block
     # for each in finalmap:
@@ -347,9 +360,14 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
         if finalmap[i][4] != 0:
             tmp = {'Latitude':finalmap[i][0],
                    'Longitude':finalmap[i][1],
-                   'RSRP':-100#finalmap[i][5]/finalmap[i][4],
+                   'RSRP':finalmap[i][5]/finalmap[i][4],
                    }
+            #data_tmp.append(tmp)
         else:
+            # tmp = {'Latitude':finalmap[i][0],
+            #        'Longitude':finalmap[i][1],
+            #        'RSRP':meanRSRP[0],
+            #        }
             prenum = 0
             preRSRP = 0
             aftnum = 0
@@ -357,34 +375,34 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
             j = i - 1
             if j >= 0:
                 while True:
-                    # print 'qian xiang...'
-                    # print j
+                    print 'qian xiang...'
+                    print j
                     if finalmap[j][4] != 0:
                         prenum = 1
                         preRSRP = finalmap[j][5]/finalmap[j][4]
                         break
-                    # if finalmap[j][2] == 'X':
-                    #     print 'zhuanzhe'
-                    #     break
+                    if finalmap[j][2] == 'X':
+                        print 'zhuanzhe'
+                        break
                     if j <= 0 :
-                        # print 'yue jie'
+                        print 'yue jie'
                         break
                     j = j - 1
             if i+1 <= len(finalmap):
                 j = i + 1
                 while True:
-                    # print 'houxiang'
-                    # print j
+                    print 'houxiang'
+                    print j
                     if j>=len(finalmap):
-                        # print 'yue jie'
+                        print 'yue jie'
                         break
                     if finalmap[j][4] != 0:
                         aftnum = 1
                         aftRSRP = finalmap[j][5]/finalmap[j][4]
                         break
-                    # if finalmap[j][2] == 'X':
-                    #     print 'zhuan zhe'
-                    #     break
+                    if finalmap[j][2] == 'X':
+                        print 'zhuan zhe'
+                        break
                     j = j + 1
 
             if prenum+aftnum > 0:
@@ -394,19 +412,11 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
             else:
                 tmp = {'Latitude':finalmap[i][0],
                        'Longitude':finalmap[i][1],
-                       'RSRP':-100,}
+                       'RSRP':meanRSRP[0],}
         data_tmp.append(tmp)
 
 
-    #calculate the mean of each operator
-    for i in range(0,3):
-        if userNum[i] != 0:
-            meanRSRP[i] = meanRSRP[i]/userNum[i]
-            meanRSRP[i] = float('%0.5f'%meanRSRP[i])
-            meanRx[i] = meanRx[i]/userNum[i]
-            meanRx[i] = float('%0.5f'%meanRx[i])
-            meanTx[i] = meanTx[i]/userNum[i]
-            meanTx[i] = float('%0.5f'%meanTx[i])
+
     if flag == 1:
          d_tmp = {'data': data_tmp,
                   'meanRSRP': meanRSRP,
@@ -708,9 +718,9 @@ def getUsers(request):
         collection = db.Msignal
         #print "starting"
         startTime = str(request.POST['startTime'])+'00000'
-        #print startTime
+        print startTime
         endTime = str(request.POST['endTime'])+'00000'
-        #print endTime
+        print endTime
         lng1 = 116.36199 #float(request.POST['lng1'])
         lat1 = 39.97052 #float(request.POST['lat1'])
         lng2 = 116.36739 + 0.00015 #float(request.POST['lng2'])

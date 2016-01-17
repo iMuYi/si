@@ -123,7 +123,7 @@
 						 $("#rxshow").html("")
 						 for (var i=0;i<obj.data.length;i++){
 	 					 	for(var k=0;k<obj.data[i].length;k++){
-								//map.addOverlay(getLab(obj.data[i][k]));
+								map.addOverlay(getLab(obj.data[i][k]));
 								TrackShow(i,k,obj.data)
 							}
 			  			  }
@@ -351,13 +351,13 @@
 		   if(j<maxj-1) {
 		   		for (var i=0;i<data.length;i++){
 			  		if(j<data[i].length-1){
-			   			//map.addOverlay(getLab(data[i][j]));
+			   			map.addOverlay(getLab(data[i][j]));
 						TrackShow(i,j,data)
 
 					}
-			  		//if(j==data[i].length-2){
-			   			//map.addOverlay(getLab(data[i][j+1]));
-			  		//}
+			  		if(j==data[i].length-2){
+			   			map.addOverlay(getLab(data[i][j+1]));
+			  		}
 			  	}
 			  j++;
             }
@@ -400,7 +400,22 @@
 	
 	 //画网格的函数	   
 	function getLab(data){
-		var length="32px";
+		var str=document.getElementsByName("userlist");
+		var userChoose=false;
+		for (var i=0;i<str.length;i++){
+  			if(str[i].checked == true){
+   			    userChoose=true;
+				break;
+  			}
+		}
+		//alert(userChoose)
+		if(userChoose==true){
+				var length="16px";
+				var longpianyi=0.00015/4
+				var latpianyi = 0.00011/4
+		}else{var length = '32px'
+			  var longpianyi=0
+			  var latpianyi=0}
 		var str=document.getElementsByName("signal");
 		var signal="";
 		for (i=0;i<str.length;i++)
@@ -421,7 +436,7 @@
 						$(".legend").append("<p><div class='coloris' style='background-color:#006699;'></div>≥3Mbps</p><p><div class='coloris' style='background-color:#0099CC;'></div>1~3Mbps</p><p><div class='coloris' style='background-color:#339933;'></div>500~1000Kbps</p><p><div class='coloris' style='background-color:#FFFF00;'></div>100~500Kbps</p><p><div class='coloris' style='background-color:#FF6600;'></div>10~100Kbps</p><p><div class='coloris' style='background-color:red;'></div>≤10Kbps</p>")
 				}
 			    var myLabel = new BMap.Label("",     //为lable填写内容
-					{position:new BMap.Point(data.Longitude,data.Latitude)});           //label的位置
+					{position:new BMap.Point(data.Longitude+longpianyi,data.Latitude-latpianyi)});           //label的位置
 					 myLabel.setStyle({       //给label设置样式，任意的CSS都是可以的
 					 height:length ,                //高度
 					 width:length,                 //宽
