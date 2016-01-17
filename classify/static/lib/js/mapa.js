@@ -123,7 +123,7 @@
 						 $("#rxshow").html("")
 						 for (var i=0;i<obj.data.length;i++){
 	 					 	for(var k=0;k<obj.data[i].length;k++){
-								map.addOverlay(getLab(obj.data[i][k]));
+								//map.addOverlay(getLab(obj.data[i][k]));
 								TrackShow(i,k,obj.data)
 							}
 			  			  }
@@ -351,13 +351,13 @@
 		   if(j<maxj-1) {
 		   		for (var i=0;i<data.length;i++){
 			  		if(j<data[i].length-1){
-			   			map.addOverlay(getLab(data[i][j]));
+			   			//map.addOverlay(getLab(data[i][j]));
 						TrackShow(i,j,data)
 
 					}
-			  		if(j==data[i].length-2){
-			   			map.addOverlay(getLab(data[i][j+1]));
-			  		}
+			  		//if(j==data[i].length-2){
+			   			//map.addOverlay(getLab(data[i][j+1]));
+			  		//}
 			  	}
 			  j++;
             }

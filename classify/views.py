@@ -328,23 +328,75 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
                     tmpFlag = 1
             if tmpFlag == 1:
                 break
-
+#######################################
     #calculate the mean of each block
-    for each in finalmap:
-        if each[4] != 0:
-            #print 'Not zero'
-            tmp = {'Latitude':each[0],
-                   'Longitude':each[1],
-                   'RSRP':each[5]/each[4],
+    # for each in finalmap:
+    #     if each[4] != 0:
+    #         tmp = {'Latitude':each[0],
+    #                'Longitude':each[1],
+    #                'RSRP':each[5]/each[4],
+    #                }
+    #     else:
+    #         tmp = {'Latitude':each[0],
+    #                'Longitude':each[1],
+    #                'RSRP':-100,
+    #                }
+    #     data_tmp.append(tmp)
+########################################
+    for i in range(0,len(finalmap)):
+        if finalmap[i][4] != 0:
+            tmp = {'Latitude':finalmap[i][0],
+                   'Longitude':finalmap[i][1],
+                   'RSRP':-100#finalmap[i][5]/finalmap[i][4],
                    }
-            #print each[5]/each[4]
         else:
-            tmp = {'Latitude':each[0],
-                   'Longitude':each[1],
-                   'RSRP':-100,
-                   }
+            prenum = 0
+            preRSRP = 0
+            aftnum = 0
+            aftRSRP = 0
+            j = i - 1
+            if j >= 0:
+                while True:
+                    # print 'qian xiang...'
+                    # print j
+                    if finalmap[j][4] != 0:
+                        prenum = 1
+                        preRSRP = finalmap[j][5]/finalmap[j][4]
+                        break
+                    # if finalmap[j][2] == 'X':
+                    #     print 'zhuanzhe'
+                    #     break
+                    if j <= 0 :
+                        # print 'yue jie'
+                        break
+                    j = j - 1
+            if i+1 <= len(finalmap):
+                j = i + 1
+                while True:
+                    # print 'houxiang'
+                    # print j
+                    if j>=len(finalmap):
+                        # print 'yue jie'
+                        break
+                    if finalmap[j][4] != 0:
+                        aftnum = 1
+                        aftRSRP = finalmap[j][5]/finalmap[j][4]
+                        break
+                    # if finalmap[j][2] == 'X':
+                    #     print 'zhuan zhe'
+                    #     break
+                    j = j + 1
+
+            if prenum+aftnum > 0:
+                tmp = {'Latitude':finalmap[i][0],
+                       'Longitude':finalmap[i][1],
+                       'RSRP':(preRSRP+aftRSRP)/(prenum+aftnum),}
+            else:
+                tmp = {'Latitude':finalmap[i][0],
+                       'Longitude':finalmap[i][1],
+                       'RSRP':-100,}
         data_tmp.append(tmp)
-    #print data_tmp
+
 
     #calculate the mean of each operator
     for i in range(0,3):
