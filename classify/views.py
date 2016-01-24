@@ -271,13 +271,13 @@ def lablink(startTime, endTime, idValue, signal):
                                     #'LocEor':LocEor
                                   }
                             data_tmp.append(tmp)
-        #data_tmp2 = DATA.changedData3()
+        data_tmp2 = DATA.changedData()
         #print data_tmp
         data_tmp = complateData(data_tmp)
         #print(data_tmp)
         print len(data_tmp)
         print 'lablinkEnd'
-        return data_tmp
+        return data_tmp2
 
 def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, flag):
     print 'AllMap'
@@ -854,16 +854,16 @@ def getUserInfo(request):
         username = idValue.split(' ')
         #print username
         data_tmp=[]
-        # data1 = DATA.changedData()
-        # data2 = DATA.changedData3()
+        data1 = DATA.changedData()
+        data2 = DATA.changedData3()
         # data_tmp.append(data1)
-        # data_tmp.append(data2)
-        for each in username:
-            if each != '':
-                #print each
-                d_tmp = lablink(startTime, endTime, each, signal)
-                data_tmp.append(d_tmp)
-                #print 'append success'
+        data_tmp.append(data2)
+        # for each in username:
+        #     if each != '':
+        #         #print each
+        #         d_tmp = lablink(startTime, endTime, each, signal)
+        #         data_tmp.append(d_tmp)
+        #         #print 'append success'
         data_tmp2 = {'data':data_tmp}
         #print data_tmp2
         data = simplejson.dumps(data_tmp2)

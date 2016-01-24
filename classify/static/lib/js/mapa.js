@@ -122,9 +122,13 @@
 						 $("#txshow").html("")
 						 $("#rxshow").html("")
 						 for (var i=0;i<obj.data.length;i++){
+							 pic="/static/lib/img/user"+i+".png"
+							 var myIcon = new BMap.Icon(pic, new BMap.Size(21, 21),{ anchor: new BMap.Size(20+i*3, 24),});
 	 					 	for(var k=0;k<obj.data[i].length;k++){
 								map.addOverlay(getLab(obj.data[i][k]));
-								TrackShow(i,k,obj.data)
+								TrackShow(i,k,obj.data)							
+								var marker= new BMap.Marker(new BMap.Point(obj.data[i][k].Longitude,obj.data[i][k].Latitude), {icon: myIcon});		
+								map.addOverlay(marker);	
 							}
 			  			  }
 					   }
@@ -329,7 +333,7 @@
           window.clearInterval(backTime);
           backTime = window.setInterval(function(){delay(data);}, 500);
         }
-	
+	var userMarkers=new Array();
 	function delay(data){ 	
         ////alert("delay")
 		var str=document.getElementsByName("userlist");
@@ -348,16 +352,18 @@
 			    maxj=  data[k].length;		   
 		     }
 		   } 
-		   if(j<maxj-1) {
+		   if(j<maxj) {
 		   		for (var i=0;i<data.length;i++){
-			  		if(j<data[i].length-1){
+					 pic="/static/lib/img/user"+i+".png"
+					 var myIcon = new BMap.Icon(pic, new BMap.Size(21, 21),{ anchor: new BMap.Size(20+i*3, 24),});
+			  		if(j<data[i].length){
 			   			map.addOverlay(getLab(data[i][j]));
-						TrackShow(i,j,data)
-
+						TrackShow(i,j,data);
+						map.removeOverlay(userMarkers[i]);
+						var marker= new BMap.Marker(new BMap.Point(data[i][j].Longitude,data[i][j].Latitude), {icon: myIcon});
+						userMarkers[i]=marker;
+						map.addOverlay(marker);	
 					}
-			  		if(j==data[i].length-2){
-			   			map.addOverlay(getLab(data[i][j+1]));
-			  		}
 			  	}
 			  j++;
             }
@@ -462,7 +468,11 @@
 				else  {   
 					myLabel.setStyle({background:"#006699",});                 			
 				}
-				myLabel.setTitle("数据数："+data.peopleNum);  
+				if(userChoose==true){
+					myLabel.setTitle("经度："+data.Longitude+"，纬度："+data.Latitude+"；时间："+data.time+"；错误码："+data.errorCode);
+				}
+				else{
+				myLabel.setTitle("数据数："+data.peopleNum);}  
 			    return myLabel;
 			}
 				
