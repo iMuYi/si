@@ -1,7 +1,6 @@
 __author__ = 'lenovo'
-a=123
-for j in range(0,2):
-    for i in range(10,0,-1):
-        if i>0:
-            print i-1
-            break
+a=[1,2,3]
+for i in range(0,10):
+    print i
+    i = i + 1
+    print i

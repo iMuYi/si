@@ -1,0 +1,92 @@
+@charset "utf-8";
+/* CSS Document */
+
+ul,li{list-style: none;margin:0;padding:0;float:left;}
+		html{height:100%}
+		body{
+	height: 100%;
+	padding: 0px;
+	font-family: "微软雅黑";
+	margin-bottom: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+}
+/*地图相关页面*/
+#map{margin-top:35px;height:100%;width:100%;}
+a {
+	text-decoration: none;
+	color:#000;
+}
+/*顶部菜单样式*/
+.top{height:35px;width:100%;background:#E0E0E0;
+position:fixed; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
+	top:0; /* 距离窗口顶部距离 */
+	left:0; /* 距离窗口左边的距离 */
+	z-index:99; /* 层叠顺序，数值越大就越高。页面滚动的时候就不会被其他内容所遮挡。 */}
+.menuAct{height:26px;float:left;padding:5px 5px 5px ;background:#069;}
+.menuAct a{color:#FFF;}
+.menu{float:left;padding:5px 5px 5px ;}
+.menu a:hover{color:#069;ont-weight: bold;}
+     /*右边菜单样式*/
+.rmenu{float:right;}
+.rmenu li{margin-right:15px;margin-top:8px;}
+.rmenu  a{
+	color: #333;
+	font-family: "宋体";
+	font-size:14px;
+}
+.rmenu li a:hover{
+	font-weight: bold;
+}
+
+  /*给出信息*/
+.info{padding:5px 5px 5px 8px;width:200px;position:fixed; margin:auto; right:50px;  top:50px; z-index: 2; background-color: #fff; display: none;}
+.info a{line-height:150%;}
+   /*弹出窗口样式*/
+.ly{position: absolute; top: 0px; height:100%;width:100%;opacity:0.6; background-color: #777;z-index: 2; left: 0px; display: none;"}
+.tchoose{ position:fixed; margin:auto; left:40%;  top:40%; z-index: 3; background-color: #fff; display: none;}
+.butcenter{
+	margin-left:45%;margin-top:25px;
+}
+.ochoose{ position:fixed; margin:auto; left:40%;  top:38%; z-index: 3; background-color: #fff; display: none;}
+.ochoose li{margin-left:20px;line-height:180%;}
+.lyu{position: absolute; top: 0px; height:100%;width:100%;opacity:0.6; background-color: #777;z-index: 2; left: 0px; display: none;"}
+.uchoose{ position:fixed; margin:auto; left:40%;  top:38%; z-index: 3; background-color: #fff; display: none;}
+
+			
+/*数据查询页面*/			
+.searchbox{
+	position: fixed; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
+	top: 35px; /* 距离窗口顶部距离 */
+	left: 0; /* 距离窗口左边的距离 */
+	width: 100%; /* 宽度设置为100% */
+	z-index: 99; /* 层叠顺序，数值越大就越高。页面滚动的时候就不会被其他内容所遮挡。 */
+	background: #D6EBF4;
+}
+.ch{margin-left:20px;margin-top:5px;margin-bottom:5px;}
+.usersearch{
+	margin-left:20px;
+	margin-top:5px;
+	position: fixed;
+	z-index: 3;
+	display: block;
+	
+}
+.areasearch{
+	 margin-left:20px;
+	 margin-top:5px;
+	 position:fixed;
+	 z-index: 3; 
+	 display: none;}
+.showbox{
+	position: fixed; /* 绝对定位，fixed是相对于浏览器窗口定位。 */
+	top: 182px;
+	left: 0; /* 距离窗口左边的距离 */
+	width: 100%; /* 宽度设置为100% */	
+	}
+#showchart{display:none;}
+
+			
+
+ 

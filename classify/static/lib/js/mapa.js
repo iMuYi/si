@@ -55,7 +55,7 @@
 	    var ret=getHisTime();//获取时间函数，action.js中
 		var startTime=ret.s;
 	    var endTime=ret.e;
-		//alert(startTime+"dao"+endTime)
+		////alert(startTime+"dao"+endTime)
 		
 		
 		var bs = map.getBounds();   //获取可视区域
@@ -246,7 +246,7 @@
     		window.clearInterval(backTime);//清楚计时器，因为我后边用到了计时，所以这里要初始化，清除别的计时器对他的影响
 			var usersStyle=document.all.users.style.display;
 			var showStyle=document.all.div_show.style.display;
-			alert('getData');
+			//alert('getData');
 			if(usersStyle=="block"||showStyle=="block"){
 				return; 
    			}	
@@ -270,21 +270,21 @@
 	    j = 0
 	    window.clearInterval(backTime);
 	    
-			alert("getTrack")
+			//alert("getTrack")
 			$("#rsrpshow").html("")
 			$("#txshow").html("")
   			$("#rxshow").html("")
 			var ret=getHisTime();
     		var startTime=ret.s;
 			var endTime=ret.e;
-	//alert(startTime+"dao"+endTime)
+	////alert(startTime+"dao"+endTime)
    		 	
    		 	var ref=refine();
 			var operator=ref.o;
    		 	var signal=ref.s;
 			var interval=ref.i;
 			var idValue=ref.u;//被选中的用户名
-    //alert(idValue);
+    ////alert(idValue);
 			var str=document.getElementsByName("userlist");
 			var userChoose=false;
 			for (var i=0;i<str.length;i++){
@@ -327,11 +327,11 @@
 	function display(data)
         {
           window.clearInterval(backTime);
-          backTime = window.setInterval(function(){delay(data);}, 1000);
+          backTime = window.setInterval(function(){delay(data);}, 500);
         }
 	
 	function delay(data){ 	
-        //alert("delay")
+        ////alert("delay")
 		var str=document.getElementsByName("userlist");
 		var userChoose=false;
 		for (var i=0;i<str.length;i++){
@@ -340,7 +340,7 @@
 				break;
   			}
 		} 
-		//alert(userChoose)
+		////alert(userChoose)
 		if(userChoose==true){
 		   var maxj=0;
 		   for (var k=0;k<data.length;k++){
@@ -363,7 +363,7 @@
             }
            else
            { 
-            //alert('end');
+            ////alert('end');
             j = 0;
             window.clearInterval(backTime);
            }
@@ -373,16 +373,16 @@
 			if(j<data.length) {
 				map.clearOverlays();
 			   for (var i=0;i<data[j].data.length;i++){
-			     // alert(j);
-				  //alert(data[j][i].RSRP)
-				  //alert(data[j].meanRSRP[0,1,2])
+			     // //alert(j);
+				  ////alert(data[j][i].RSRP)
+				  ////alert(data[j].meanRSRP[0,1,2])
 			      map.addOverlay(getLab(data[j].data[i]));
 			   }
 			   j++;
 			}
             else
             { 
-            //alert('end');
+            ////alert('end');
                j = 0;
                window.clearInterval(backTime);
             }
@@ -408,7 +408,7 @@
 				break;
   			}
 		}
-		//alert(userChoose)
+		////alert(userChoose)
 		if(userChoose==true){
 				var length="16px";
 				var longpianyi=0.00015/4
@@ -470,13 +470,13 @@
 	//获取服务器中的用户列表显示到页面	   
     function showUser() {
 		if(document.all.users.style.display=="block"){$("#users").html("");}
-	    else{       //alert('showuser')
+	    else{       ////alert('showuser')
 	            j = 0;
 	            window.clearInterval(backTime);
 	            var ret=getHisTime();
 				var startTime=ret.s;
 				var endTime=ret.e;
-				//alert(startTime+"dao"+endTime)
+				////alert(startTime+"dao"+endTime)
 				var ref=refine();
 				var operator=ref.o;
 				var signal=ref.s;
@@ -537,7 +537,7 @@
 //						{
 //							if ((lngjud>0.05) || (latjud>0.05))
 //								{
-//									alert('wrong');
+//									//alert('wrong');
 //									//var polyline = new BMap.Polyline([new BMap.Point(data[i][j].Longitude,data[i][j].Latitude), new BMap.Point(data[i][j].Longitude,data[i][j].Latitude)], {strokeColor:color, strokeWeight:6, strokeOpacity:0.7});
 									//map.addOverlay(polyline);
 
