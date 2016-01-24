@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vVx4BApDDaqHqv49noQqLiD1"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/action.js"></script>
+	 <script src="js/jquery.json.min.js"></script>
+    <!--<script type="text/javascript" src="js/changeMore.js">-->
+    <title></title>
+</head>
+
+<body>
+       
+<div id="map"></div>
+
+<script>
+
+	var map = new BMap.Map("map",{minZoom:18,maxZoom:19});          // 创建地图实例
+    var pt_center = new BMap.Point(116.361757,39.968524);
+    map.centerAndZoom(pt_center,19 );             // 初始化地图，设置中心点坐标和地图级别
+    map.disableScrollWheelZoom(); // 允许滚轮缩放
+	
+	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+	var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+	map.addControl(top_left_control);  //添加控件和比例尺     
+	map.addControl(top_left_navigation); 
+
+
+<!--用添加文本标签的方法添加方块-->
+
+ function  signal(Latitude,Longitude,Derection) //声明对象
+     {
+       
+        this.Latitude= Latitude; 
+		this.Longitude = Longitude;
+        this.Derection= Derection;
+     }
+	var data=new Array();
+	 data.push(new signal(39.96953, 116.36214, 'S'), new signal(39.96953, 116.36229, 'S'), new signal(39.96953, 116.36244, 'S'), new signal(39.96953, 116.36259, 'S'), new signal(39.96953, 116.36289, 'S'), new signal(39.96953, 116.36304, 'S'), new signal(39.96953, 116.36319, 'S'), new signal(39.96953, 116.36334, 'S'), new signal(39.96953, 116.36349, 'S'), new signal(39.96909, 116.36214, 'S'), new signal(39.96909, 116.36229, 'S'), new signal(39.96909, 116.36244, 'S'), new signal(39.96909, 116.36259, 'S'), new signal(39.96909, 116.36289, 'S'), new signal(39.96909, 116.36304, 'S'), new signal(39.96909, 116.36319, 'S'), new signal(39.96909, 116.36334, 'S'), new signal(39.96909, 116.36349, 'S'), new signal(39.96854, 116.36214, 'S'), new signal(39.96854, 116.36229, 'S'), new signal(39.96854, 116.36244, 'S'), new signal(39.96854, 116.36259, 'S'), new signal(39.96854, 116.36289, 'S'), new signal(39.96854, 116.36304, 'S'), new signal(39.96854, 116.36319, 'S'), new signal(39.96854, 116.36334, 'S'), new signal(39.96854, 116.36349, 'S'), new signal(39.9681, 116.36214, 'S'), new signal(39.9681, 116.36229, 'S'), new signal(39.9681, 116.36244, 'S'), new signal(39.9681, 116.36259, 'S'), new signal(39.9681, 116.36289, 'S'), new signal(39.9681, 116.36304, 'S'), new signal(39.9681, 116.36319, 'S'), new signal(39.9681, 116.36334, 'S'), new signal(39.9681, 116.36349, 'S'), new signal(39.96975, 116.36379, 'S'), new signal(39.96975, 116.36394, 'S'), new signal(39.96975, 116.36409, 'S'), new signal(39.96975, 116.36424, 'S'), new signal(39.96975, 116.36439, 'S'), new signal(39.96975, 116.36454, 'S'), new signal(39.96975, 116.36469, 'S'), new signal(39.96975, 116.36484, 'S'), new signal(39.96975, 116.36499, 'S'), new signal(39.96909, 116.36379, 'S'), new signal(39.96909, 116.36394, 'S'), new signal(39.96909, 116.36409, 'S'), new signal(39.96909, 116.36424, 'S'), new signal(39.96909, 116.36439, 'S'), new signal(39.96909, 116.36454, 'S'), new signal(39.96909, 116.36469, 'S'), new signal(39.96909, 116.36484, 'S'), new signal(39.96909, 116.36499, 'S'), new signal(39.9681, 116.36379, 'S'), new signal(39.9681, 116.36394, 'S'), new signal(39.9681, 116.36409, 'S'), new signal(39.9681, 116.36424, 'S'), new signal(39.9681, 116.36439, 'S'), new signal(39.9681, 116.36454, 'S'), new signal(39.9681, 116.36469, 'S'), new signal(39.9681, 116.36484, 'S'), new signal(39.9681, 116.36499, 'S'), new signal(39.97041, 116.36529, 'S'), new signal(39.97041, 116.36544, 'S'), new signal(39.97041, 116.36559, 'S'), new signal(39.97041, 116.36574, 'S'), new signal(39.97041, 116.36589, 'S'), new signal(39.97041, 116.36604, 'S'), new signal(39.97041, 116.36634, 'S'), new signal(39.97041, 116.36649, 'S'), new signal(39.97041, 116.36664, 'S'), new signal(39.97041, 116.36694, 'S'), new signal(39.97041, 116.36709, 'S'), new signal(39.97041, 116.36724, 'S'), new signal(39.96953, 116.36529, 'S'), new signal(39.96953, 116.36544, 'S'), new signal(39.96953, 116.36559, 'S'), new signal(39.96953, 116.36574, 'S'), new signal(39.96953, 116.36589, 'S'), new signal(39.96953, 116.36604, 'S'), new signal(39.96953, 116.36634, 'S'), new signal(39.96953, 116.36649, 'S'), new signal(39.96953, 116.36664, 'S'), new signal(39.96887, 116.36529, 'S'), new signal(39.96887, 116.36544, 'S'), new signal(39.96887, 116.36559, 'S'), new signal(39.96887, 116.36574, 'S'), new signal(39.96887, 116.36589, 'S'), new signal(39.96887, 116.36604, 'S'), new signal(39.96887, 116.36634, 'S'), new signal(39.96887, 116.36649, 'S'), new signal(39.96887, 116.36664, 'S'), new signal(39.96887, 116.36694, 'S'), new signal(39.96887, 116.36709, 'S'), new signal(39.96887, 116.36724, 'S'), new signal(39.96821, 116.36529, 'S'), new signal(39.96821, 116.36544, 'S'), new signal(39.96821, 116.36559, 'S'), new signal(39.96821, 116.36574, 'S'), new signal(39.96821, 116.36589, 'S'), new signal(39.96821, 116.36604, 'S'), new signal(39.96821, 116.36619, 'S'), new signal(39.96821, 116.36634, 'S'), new signal(39.96821, 116.36649, 'S'), new signal(39.96821, 116.36664, 'S'), new signal(39.96942, 116.36694, 'S'), new signal(39.96942, 116.36709, 'S'), new signal(39.96942, 116.36724, 'S'), new signal(39.96832, 116.36694, 'S'), new signal(39.96832, 116.36709, 'S'), new signal(39.96832, 116.36724, 'S'), new signal(39.96953, 116.36199, 'X'), new signal(39.96942, 116.36199, 'R'), new signal(39.96931, 116.36199, 'R'), new signal(39.9692, 116.36199, 'R'), new signal(39.96909, 116.36199, 'X'), new signal(39.96898, 116.36199, 'R'), new signal(39.96887, 116.36199, 'R'), new signal(39.96876, 116.36199, 'R'), new signal(39.96865, 116.36199, 'R'), new signal(39.96854, 116.36199, 'X'), new signal(39.96843, 116.36199, 'R'), new signal(39.96832, 116.36199, 'R'), new signal(39.96821, 116.36199, 'R'), new signal(39.9681, 116.36199, 'X'), new signal(39.97041, 116.36274, 'R'), new signal(39.9703, 116.36274, 'R'), new signal(39.97019, 116.36274, 'R'), new signal(39.97008, 116.36274, 'R'), new signal(39.96997, 116.36274, 'R'), new signal(39.96986, 116.36274, 'R'), new signal(39.96975, 116.36274, 'R'), new signal(39.96964, 116.36274, 'R'), new signal(39.96953, 116.36274, 'X'), new signal(39.96942, 116.36274, 'R'), new signal(39.96931, 116.36274, 'R'), new signal(39.9692, 116.36274, 'R'), new signal(39.96909, 116.36274, 'X'), new signal(39.96898, 116.36274, 'R'), new signal(39.96887, 116.36274, 'R'), new signal(39.96876, 116.36274, 'R'), new signal(39.96865, 116.36274, 'R'), new signal(39.96854, 116.36274, 'X'), new signal(39.96843, 116.36274, 'R'), new signal(39.96832, 116.36274, 'R'), new signal(39.96821, 116.36274, 'R'), new signal(39.9681, 116.36274, 'X'), new signal(39.97041, 116.36364, 'R'), new signal(39.9703, 116.36364, 'R'), new signal(39.97019, 116.36364, 'R'), new signal(39.97008, 116.36364, 'R'), new signal(39.96997, 116.36364, 'R'), new signal(39.96986, 116.36364, 'R'), new signal(39.96975, 116.36364, 'X'), new signal(39.96964, 116.36364, 'R'), new signal(39.96953, 116.36364, 'X'), new signal(39.96942, 116.36364, 'R'), new signal(39.96931, 116.36364, 'R'), new signal(39.9692, 116.36364, 'R'), new signal(39.96909, 116.36364, 'X'), new signal(39.96898, 116.36364, 'R'), new signal(39.96887, 116.36364, 'R'), new signal(39.96876, 116.36364, 'R'), new signal(39.96865, 116.36364, 'R'), new signal(39.96854, 116.36364, 'X'), new signal(39.96843, 116.36364, 'R'), new signal(39.96832, 116.36364, 'R'), new signal(39.96821, 116.36364, 'R'), new signal(39.9681, 116.36364, 'X'), new signal(39.97041, 116.36514, 'X'), new signal(39.9703, 116.36514, 'R'), new signal(39.97019, 116.36514, 'R'), new signal(39.97008, 116.36514, 'R'), new signal(39.96997, 116.36514, 'R'), new signal(39.96986, 116.36514, 'R'), new signal(39.96975, 116.36514, 'X'), new signal(39.96964, 116.36514, 'R'), new signal(39.96953, 116.36514, 'X'), new signal(39.96942, 116.36514, 'R'), new signal(39.96931, 116.36514, 'R'), new signal(39.9692, 116.36514, 'R'), new signal(39.96909, 116.36514, 'X'), new signal(39.96898, 116.36514, 'R'), new signal(39.96887, 116.36514, 'X'), new signal(39.96876, 116.36514, 'R'), new signal(39.96865, 116.36514, 'R'), new signal(39.96854, 116.36514, 'R'), new signal(39.96843, 116.36514, 'R'), new signal(39.96832, 116.36514, 'R'), new signal(39.96821, 116.36514, 'X'), new signal(39.9681, 116.36514, 'X'), new signal(39.97041, 116.36619, 'X'), new signal(39.9703, 116.36619, 'R'), new signal(39.97019, 116.36619, 'R'), new signal(39.97008, 116.36619, 'R'), new signal(39.96997, 116.36619, 'R'), new signal(39.96986, 116.36619, 'R'), new signal(39.96975, 116.36619, 'R'), new signal(39.96964, 116.36619, 'R'), new signal(39.96953, 116.36619, 'X'), new signal(39.96942, 116.36619, 'R'), new signal(39.96931, 116.36619, 'R'), new signal(39.9692, 116.36619, 'R'), new signal(39.96909, 116.36619, 'R'), new signal(39.96898, 116.36619, 'R'), new signal(39.96887, 116.36619, 'X'), new signal(39.97041, 116.36679, 'X'), new signal(39.9703, 116.36679, 'R'), new signal(39.97019, 116.36679, 'R'), new signal(39.97008, 116.36679, 'R'), new signal(39.96997, 116.36679, 'R'), new signal(39.96986, 116.36679, 'R'), new signal(39.96975, 116.36679, 'R'), new signal(39.96964, 116.36679, 'R'), new signal(39.96953, 116.36679, 'X'), new signal(39.96942, 116.36679, 'X'), new signal(39.96931, 116.36679, 'R'), new signal(39.9692, 116.36679, 'R'), new signal(39.96909, 116.36679, 'R'), new signal(39.96898, 116.36679, 'R'), new signal(39.96887, 116.36679, 'X'), new signal(39.96876, 116.36679, 'R'), new signal(39.96865, 116.36679, 'R'), new signal(39.96854, 116.36679, 'R'), new signal(39.96843, 116.36679, 'R'), new signal(39.96832, 116.36679, 'X'), new signal(39.96821, 116.36679, 'X'), new signal(39.97041, 116.36739, 'X'), new signal(39.9703, 116.36739, 'R'), new signal(39.97019, 116.36739, 'R'), new signal(39.97008, 116.36739, 'R'), new signal(39.96997, 116.36739, 'R'), new signal(39.96986, 116.36739, 'R'), new signal(39.96975, 116.36739, 'R'), new signal(39.96964, 116.36739, 'R'), new signal(39.96953, 116.36739, 'R'), new signal(39.96942, 116.36739, 'X'), new signal(39.96931, 116.36739, 'R'), new signal(39.9692, 116.36739, 'R'), new signal(39.96909, 116.36739, 'R'), new signal(39.96898, 116.36739, 'R'), new signal(39.96887, 116.36739, 'X'), new signal(39.96876, 116.36739, 'R'), new signal(39.96865, 116.36739, 'R'), new signal(39.96854, 116.36739, 'R'), new signal(39.96843, 116.36739, 'R'), new signal(39.96832, 116.36739, 'X'));
+	map.clearOverlays();  
+	length="32px";
+	//alert(data.length)
+	//将下面的数据传给服务器
+
+	//服务器返回相应的数据，处理添加到地图上
+		  for(var i=0;i<data.length;i++){
+		  
+				var myLabel = new BMap.Label("",     //为lable填写内容
+               		{position:new BMap.Point(data[i].Longitude,data[i].Latitude)});           //label的位置
+					myLabel.setStyle({       //给label设置样式，任意的CSS都是可以的
+  		    		height:length ,                //高度
+    				width:length,                 //宽
+					opacity:"0.4",			//透明度
+					 border:"0", 
+					});
+					myLabel.setStyle({background:"red", });
+				//根据信号强度不同设置不同颜
+ 				map.addOverlay(myLabel);
+				}	
+
+//map.addEventListener("tilesloaded", getData);
+//map.addEventListener("zoomend", getData);
+//map.addEventListener("moveend", getData);
+	
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-//地图模式时间选择
+//获得选择的时间
 function getHisTime(){
 	var d1=document.getElementById("startTime").value;
 	var d2=document.getElementById("endTime").value;
@@ -40,7 +40,7 @@ function addZero(value){
 	return value;
  }
  
-//地图模式精炼选择
+//获得选择的运营商、信号类型和回放间隔
 function refine(){
 		//运营商
 		var str=document.getElementsByName("operator");
@@ -63,37 +63,49 @@ function refine(){
    			  signal=str[i].value;
   			}
 		}
-		
-		return{o:operator,s:signal};	
+		//回放间隔
+		var str=document.getElementsByName("interval");
+		var interval="";
+		for (i=0;i<str.length;i++)
+		{
+  			if(str[i].checked == true)
+  			{
+   			  interval=str[i].value;
+  			}
+		}
+		//用户列表
+		var str=document.getElementsByName("userlist");
+		var userchecked="";
+		for (var i=0;i<str.length;i++)
+		{
+  			if(str[i].checked == true)
+  			{
+   			  userchecked+=str[i].value+" ";
+  			}
+		}
+		return{o:operator,s:signal,i:interval,u:userchecked};	
 	}
  	
-   
-//个人轨迹重置函数
-function clearsearch()	
-{ 
-	document.getElementById("startTimeU").value="";
-	document.getElementById("endTimeU").value="";
-	document.getElementById("idValue").value="";
-	document.getElementById("idType").value="userID";
-	
-}
-//全选，这个可以先不看，有点难
-$(function(){
-	  	var str=document.getElementsByName("chkAll");
-        $("INPUT[name='chkAll']").on('ifClicked', function(event){
-			//alert("selectall")
-			if(str[0].checked!=true){
-					$("INPUT[name='userlist']").iCheck('check');
-   			}
-   			else {
-					$("INPUT[name='userlist']").iCheck('uncheck');
-			}
-		});
+ 
+//用户列表全选功能
+
+	 $("#chkAll").click(function(){
+ 		 if($(this).attr("checked") == true){ //check all
+   			$("input[name='userlist']").each(function(){
+    			$(this).attr("checked",true);
+   			});
+  		 }else{
+   			$("input[name='userlist']").each(function(){
+   			 	$(this).attr("checked",false);
+   			});
+  		}
+	 });
 	   
-	 	$("INPUT[name='userlist']").on('ifChanged', function(event){
+	 	$("INPUT[name='userlist']").click(function(){
+			var str=document.getElementsByName("chkAll");
 			var stru=document.getElementsByName("userlist");
 			if(str[0].checked==true){
-			 $("INPUT[name='chkAll']").iCheck('uncheck');
+			 $("INPUT[name='chkAll']").attr("checked",false);
 			}
 			var usernum=0;
 			for (var i=0;i<stru.length;i++){
@@ -103,7 +115,8 @@ $(function(){
 			}
 			
 		    if(usernum==stru.length){ 
-			 $("INPUT[name='chkAll']").iCheck('check');
+			  $("INPUT[name='chkAll']").attr("checked",true);
 		    }
 	 });
-})
+	 
+	 

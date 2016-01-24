@@ -13,6 +13,8 @@ from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 # Create your views here.
 from classify import mapdis
+import os
+from classify import DATA
 
 class UserForm(forms.Form):
     userName = forms.CharField(label='userName',max_length=30)
@@ -124,67 +126,107 @@ def index(req):
 def searchMap(request):
     return render(request,'map.html')
 
-def tmp():
-# def complateData(data_tmp):
-#     d_tmp = []
-#     mapdata = mapdis.getMap()
-#     for i in range(1,len(data_tmp)):
-#         
-#         if data_tmp[i+1]['Latitude'] != data_tmp[i]['Latitude'] and data_tmp[i+1]['Longitude'] != data_tmp[i]['Longitude']:
-#             if (data_tmp[i+1]['Latitude'],data_tmp[i]['Longitude']) in mapdata:
-#                 tmp = {'Longitude':data_tmp[i]['Longitude'],
-#                        'Latitude':data_tmp[i]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'l'
-#                        }
-#                 d_tmp.append(tmp)
-#                 tmp = {'Longitude':data_tmp[i]['Longitude'],
-#                        'Latitude':data_tmp[i+1]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'l'
-#                        }
-#                 d_tmp.append(tmp)
-#             elif (data_tmp[i]['Latitude'],data_tmp[i+1]['Longitude']) in mapdata:
-#                 tmp = {'Longitude':data_tmp[i]['Longitude'],
-#                        'Latitude':data_tmp[i]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'l'
-#                        }
-#                 d_tmp.append(tmp)
-#                 tmp = {'Longitude':data_tmp[i+1]['Longitude'],
-#                        'Latitude':data_tmp[i]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'l'
-#                        }
-#                 d_tmp.append(tmp)
-#             else:
-#                 tmp = {'Longitude':data_tmp[i]['Longitude'],
-#                        'Latitude':data_tmp[i]['Latitude'],
-#                        'RSRP':data_tmp[i]['RSRP'],
-#                        'time':data_tmp[i]['time'],
-#                        'style':'nl'
-#                        }
-#                 d_tmp.append(tmp)
-#         else: 
-    return 0
+#def tmp():
+def complateData(data_tmp):
+    print 'complateData'
+    d_tmp = []
+    mapdata = mapdis.getMap()
+    #print mapdata
+    for i in range(0,len(data_tmp)-1):
+         if data_tmp[i+1]['Latitude'] != data_tmp[i]['Latitude'] and data_tmp[i+1]['Longitude'] != data_tmp[i]['Longitude']:
+             if (data_tmp[i+1]['Latitude'],data_tmp[i]['Longitude']) in mapdata:
+                 tmp = {'Longitude':data_tmp[i]['Longitude'],
+                        'Latitude':data_tmp[i]['Latitude'],
+                        'RSRP':data_tmp[i]['RSRP'],
+                        'time':data_tmp[i]['time'],
+                        'style':'l'
+                        }
+                 d_tmp.append(tmp)
+                 tmp = {'Longitude':data_tmp[i]['Longitude'],
+                        'Latitude':data_tmp[i+1]['Latitude'],
+                        'RSRP':data_tmp[i]['RSRP'],
+                        'time':data_tmp[i]['time'],
+                        'style':'l'
+                        }
+                 d_tmp.append(tmp)
+             elif (data_tmp[i]['Latitude'],data_tmp[i+1]['Longitude']) in mapdata:
+                 tmp = {'Longitude':data_tmp[i]['Longitude'],
+                       'Latitude':data_tmp[i]['Latitude'],
+                       'RSRP':data_tmp[i]['RSRP'],
+                       'time':data_tmp[i]['time'],
+                       'style':'l'
+                       }
+                 d_tmp.append(tmp)
+                 tmp = {'Longitude':data_tmp[i+1]['Longitude'],
+                        'Latitude':data_tmp[i]['Latitude'],
+                        'RSRP':data_tmp[i]['RSRP'],
+                        'time':data_tmp[i]['time'],
+                        'style':'l'
+                        }
+                 d_tmp.append(tmp)
+                 print 'zhuanzhe'
+             else:
+                 tmp = {'Longitude':data_tmp[i]['Longitude'],
+                        'Latitude':data_tmp[i]['Latitude'],
+                        'RSRP':data_tmp[i]['RSRP'],
+                        'time':data_tmp[i]['time'],
+                        'style':'nl'
+                        }
+                 d_tmp.append(tmp)
+                 print 'buzhuan'
+         else:
+             tmp = {'Longitude':data_tmp[i]['Longitude'],
+                    'Latitude':data_tmp[i]['Latitude'],
+                    'RSRP':data_tmp[i]['RSRP'],
+                    'time':data_tmp[i]['time'],
+                    'style':'l'
+                    }
+             d_tmp.append(tmp)
+    print 'begin'
+    for i in range(0,len(d_tmp)-3):
+        if d_tmp[i]['style'] != 'delete':
+            if d_tmp[i]['Longitude'] == d_tmp[i+1]['Longitude'] and d_tmp[i]['Latitude'] == d_tmp[i+1]['Latitude']:
+                d_tmp[i]={'style':'delete'}
+                continue
+            if d_tmp[i]['Longitude'] == d_tmp[i+2]['Longitude'] and d_tmp[i]['Latitude'] == d_tmp[i+2]['Latitude']:
+                d_tmp[i]={'style':'delete'}
+                d_tmp[i+1]={'style':'delete'}
+                continue
+            if d_tmp[i]['Longitude'] == d_tmp[i+3]['Longitude'] and d_tmp[i]['Latitude'] == d_tmp[i+3]['Latitude']:
+                d_tmp[i]={'style':'delete'}
+                d_tmp[i+1]={'style':'delete'}
+                d_tmp[i+2]={'style':'delete'}
+
+                continue
+
+    print len(d_tmp)
+    dd_tmp=[]
+    for each in d_tmp:
+        if each['style'] !='delete':
+            dd_tmp.append(each)
+    print len(dd_tmp)
+    print 'complateDataEnd'
+    return dd_tmp
 
 def lablink(startTime, endTime, idValue, signal):
+        print 'labLink'
         data_tmp = []
         db = Mongolink()
         collection = db.Msignal
+        print startTime
+        print endTime
         user = collection.find({"U_ID": idValue, 'GetTime': {'$gt':startTime, '$lt': endTime}})
-        #print 'user'
+        print 'user'
         #print user
+        #print len(user)
         finalmap = mapdis.getFinalMap()
         for each in user:
+
             lng = each['Longitude']
             #print lng
             lat = each['Latitude']
             #print lat
+            #LocEor=each['LocEor']
             if signal == "Tx":
                 RSRP = each['TX']
             elif signal == "Rx":
@@ -195,38 +237,50 @@ def lablink(startTime, endTime, idValue, signal):
             GetTime = each['GetTime']
             #print GetTime
             for every in finalmap:
-                if every[2] == 'S':
-                    if (lat <= every[0] + 0.00011) and (lat >= every[0] - 0.00022) and (lng >= every[1]) and (lng <= every[1]+0.00015):
-                        tmp = {
-                                'Longitude': every[1],
-                                'Latitude': every[0],
-                                'RSRP': RSRP,
-                                'time': GetTime,
-                              }
-                        data_tmp.append(tmp)
-                        break
-                elif every[2] == 'R':
-                    if (lat <= every[0]) and (lat >= every[0] - 0.00011) and (lng >= every[1] - 0.00015) and (lng <= every[1]+0.0003):
-                        tmp = {
-                                'Longitude': every[1],
-                                'Latitude': every[0],
-                                'RSRP': RSRP,
-                                'time': GetTime,
-                              }
-                        data_tmp.append(tmp)
-                        break
-                elif every[2] =='X':
-                    if (lat <= every[0]) and (lat >= every[0] - 0.00011) and (lng >= every[1]) and (lng <= every[1]+0.00015):
-                        tmp = {
-                                'Longitude': every[1],
-                                'Latitude': every[0],
-                                'RSRP': RSRP,
-                                'time': GetTime,
-                              }
-                        data_tmp.append(tmp)
-        return data_tmp
+                if RSRP != -113:
+                    if every[2] == 'S':
+                        if (lat <= every[0] + 0.00011) and (lat >= every[0] - 0.00022) and (lng >= every[1]) and (lng <= every[1]+0.00015):
+                            tmp = {
+                                    'Longitude': every[1],
+                                    'Latitude': every[0],
+                                    'RSRP': RSRP,
+                                    'time': GetTime,
+                                    #'LocEor':LocEor
+
+                                  }
+                            data_tmp.append(tmp)
+                            break
+                    elif every[2] == 'R':
+                        if (lat <= every[0]) and (lat >= every[0] - 0.00011) and (lng >= every[1] - 0.00015) and (lng <= every[1]+0.0003):
+                            tmp = {
+                                    'Longitude': every[1],
+                                    'Latitude': every[0],
+                                    'RSRP': RSRP,
+                                    'time': GetTime,
+                                    #'LocEor':LocEor
+                                  }
+                            data_tmp.append(tmp)
+                            break
+                    elif every[2] =='X':
+                        if (lat <= every[0]) and (lat >= every[0] - 0.00011) and (lng >= every[1]) and (lng <= every[1]+0.00015):
+                            tmp = {
+                                    'Longitude': every[1],
+                                    'Latitude': every[0],
+                                    'RSRP': RSRP,
+                                    'time': GetTime,
+                                    #'LocEor':LocEor
+                                  }
+                            data_tmp.append(tmp)
+        data_tmp2 = DATA.changedData()
+        #print data_tmp
+        data_tmp = complateData(data_tmp)
+        #print(data_tmp)
+        print len(data_tmp)
+        print 'lablinkEnd'
+        return data_tmp2
 
 def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, flag):
+    print 'AllMap'
     data_tmp = []
     d_tmp = []
     db = Mongolink()
@@ -240,37 +294,38 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
 
     # pre-coding
     for each in siganlInfo:
-        if each['NetworkType'] in ChinaMobile:
-            tmp = {'IMEI':each['U_ID'],
-                   'Operator':'ChinaMobile',
-                   'RSRP':each['SS_3G'],
-                   'TX':each['TX'],
-                   'RX':each['RX'],
-                   'GetTime':each['GetTime'],
-                   'Longitude':each['Longitude'],
-                   'Latitude':each['Latitude'],
-               }
-        elif each['NetworkType'] in Unicom:
-            tmp = {'IMEI':each['U_ID'],
-                   'Operator':'Unicom',
-                   'RSRP':each['SS_3G'],
-                   'TX':each['TX'],
-                   'RX':each['RX'],
-                   'GetTime':each['GetTime'],
-                   'Longitude':each['Longitude'],
-                   'Latitude':each['Latitude'],
-               }
-        else:
-            tmp = {'IMEI':each['U_ID'],
-                   'Operator':'Telcom',
-                   'RSRP':each['SS_3G'],
-                   'TX':each['TX'],
-                   'RX':each['RX'],
-                   'GetTime':each['GetTime'],
-                   'Longitude':each['Longitude'],
-                   'Latitude':each['Latitude'],
-               }
-        usefulInfo.append(tmp)
+        if each['SS_3G']!=-113:
+            if each['NetworkType'] in ChinaMobile:
+                tmp = {'IMEI':each['U_ID'],
+                       'Operator':'ChinaMobile',
+                       'RSRP':each['SS_3G'],
+                       'TX':each['TX'],
+                       'RX':each['RX'],
+                       'GetTime':each['GetTime'],
+                       'Longitude':each['Longitude'],
+                       'Latitude':each['Latitude'],
+                   }
+            elif each['NetworkType'] in Unicom:
+                tmp = {'IMEI':each['U_ID'],
+                       'Operator':'Unicom',
+                       'RSRP':each['SS_3G'],
+                       'TX':each['TX'],
+                       'RX':each['RX'],
+                       'GetTime':each['GetTime'],
+                       'Longitude':each['Longitude'],
+                       'Latitude':each['Latitude'],
+                   }
+            else:
+                tmp = {'IMEI':each['U_ID'],
+                       'Operator':'Telcom',
+                       'RSRP':each['SS_3G'],
+                       'TX':each['TX'],
+                       'RX':each['RX'],
+                       'GetTime':each['GetTime'],
+                       'Longitude':each['Longitude'],
+                       'Latitude':each['Latitude'],
+                   }
+            usefulInfo.append(tmp)
     #print len(usefulInfo)
 
     #get map infomation
@@ -317,24 +372,6 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
                     tmpFlag = 1
             if tmpFlag == 1:
                 break
-
-    #calculate the mean of each block
-    for each in finalmap:
-        if each[4] != 0:
-            #print 'Not zero'
-            tmp = {'Latitude':each[0],
-                   'Longitude':each[1],
-                   'RSRP':each[5]/each[4],
-                   }
-            #print each[5]/each[4]
-        else:
-            tmp = {'Latitude':each[0],
-                   'Longitude':each[1],
-                   'RSRP':-100,
-                   }
-        data_tmp.append(tmp)
-    #print data_tmp
-
     #calculate the mean of each operator
     for i in range(0,3):
         if userNum[i] != 0:
@@ -344,6 +381,83 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
             meanRx[i] = float('%0.5f'%meanRx[i])
             meanTx[i] = meanTx[i]/userNum[i]
             meanTx[i] = float('%0.5f'%meanTx[i])
+
+#######################################
+    #calculate the mean of each block
+    # for each in finalmap:
+    #     if each[4] != 0:
+    #         tmp = {'Latitude':each[0],
+    #                'Longitude':each[1],
+    #                'RSRP':each[5]/each[4],
+    #                }
+    #     else:
+    #         tmp = {'Latitude':each[0],
+    #                'Longitude':each[1],
+    #                'RSRP':-100,
+    #                }
+    #     data_tmp.append(tmp)
+########################################
+    for i in range(0,len(finalmap)):
+        if finalmap[i][4] != 0:
+            tmp = {'Latitude':finalmap[i][0],
+                   'Longitude':finalmap[i][1],
+                   'RSRP':finalmap[i][5]/finalmap[i][4],
+                   }
+            #data_tmp.append(tmp)
+        else:
+            # tmp = {'Latitude':finalmap[i][0],
+            #        'Longitude':finalmap[i][1],
+            #        'RSRP':meanRSRP[0],
+            #        }
+            prenum = 0
+            preRSRP = 0
+            aftnum = 0
+            aftRSRP = 0
+            j = i - 1
+            if j >= 0:
+                while True:
+                    print 'qian xiang...'
+                    print j
+                    if finalmap[j][4] != 0:
+                        prenum = 1
+                        preRSRP = finalmap[j][5]/finalmap[j][4]
+                        break
+                    if finalmap[j][2] == 'X':
+                        print 'zhuanzhe'
+                        break
+                    if j <= 0 :
+                        print 'yue jie'
+                        break
+                    j = j - 1
+            if i+1 <= len(finalmap):
+                j = i + 1
+                while True:
+                    print 'houxiang'
+                    print j
+                    if j>=len(finalmap):
+                        print 'yue jie'
+                        break
+                    if finalmap[j][4] != 0:
+                        aftnum = 1
+                        aftRSRP = finalmap[j][5]/finalmap[j][4]
+                        break
+                    if finalmap[j][2] == 'X':
+                        print 'zhuan zhe'
+                        break
+                    j = j + 1
+
+            if prenum+aftnum > 0:
+                tmp = {'Latitude':finalmap[i][0],
+                       'Longitude':finalmap[i][1],
+                       'RSRP':(preRSRP+aftRSRP)/(prenum+aftnum),}
+            else:
+                tmp = {'Latitude':finalmap[i][0],
+                       'Longitude':finalmap[i][1],
+                       'RSRP':meanRSRP[0],}
+        data_tmp.append(tmp)
+
+
+
     if flag == 1:
          d_tmp = {'data': data_tmp,
                   'meanRSRP': meanRSRP,
@@ -352,6 +466,8 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
                   }
     else:
         d_tmp = data_tmp
+    print len(d_tmp)
+    print 'allMapEnd'
     return d_tmp
 @csrf_protect
 def getSignalInfo(request):
@@ -448,12 +564,21 @@ def eachMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, 
         usefulInfo.append(tmp)
     #print len(usefulInfo)
     timeArray = timedis(startTime,endTime,300)
+    print timeArray
     usefulInfo_tmp = []
+    tmpFile = open(r'D:\lab\tmp\si\log\log.txt','a')
+    tmpFile.write(str(usefulInfo)+'\r\n')
+
     for each in timeArray:
+        print each[0][8:12]+' '+each[1][8:12]
+        usefulInfo_tmp = []
         for every in usefulInfo:
             if (every['GetTime']>=each[0]) and (every['GetTime']<=each[1]):
                 usefulInfo_tmp.append(every)
-                usefulInfo.remove(every)
+        tmpFile.write('usefulInfo_tmp:\r\n')
+        tmpFile.write(str(usefulInfo_tmp)+'\r\n')
+
+
         #get map infomation
         finalmap = mapdis.getFinalMap()
         meanRSRP =[0,0,0]
@@ -499,24 +624,6 @@ def eachMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, 
                     break
         ##print finalmap
 
-        #calculate the mean of each block
-        data_tmp = []
-        for each in finalmap:
-            if each[4] != 0:
-                #print 'Not zero'
-                tmp = {'Latitude':each[0],
-                       'Longitude':each[1],
-                       'RSRP':each[5]/each[4],
-                       }
-                #print each[5]/each[4]
-            else:
-                tmp = {'Latitude':each[0],
-                       'Longitude':each[1],
-                       'RSRP':-100,
-                       }
-            data_tmp.append(tmp)
-        ##print data_tmp
-
         #calculate the mean of each operator
         for i in range(0,3):
             if userNum[i] != 0:
@@ -526,12 +633,76 @@ def eachMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, 
                 meanRx[i] = float('%0.5f'%meanRx[i])
                 meanTx[i] = meanTx[i]/userNum[i]
                 meanTx[i] = float('%0.5f'%meanTx[i])
+
+        #calculate the mean of each block
+        data_tmp = []
+        for i in range(0,len(finalmap)):
+            if finalmap[i][4] != 0:
+                tmp = {'Latitude':finalmap[i][0],
+                       'Longitude':finalmap[i][1],
+                       'RSRP':finalmap[i][5]/finalmap[i][4],
+                       }
+                #data_tmp.append(tmp)
+            else:
+                # tmp = {'Latitude':finalmap[i][0],
+                #        'Longitude':finalmap[i][1],
+                #        'RSRP':meanRSRP[0],
+                #        }
+                prenum = 0
+                preRSRP = 0
+                aftnum = 0
+                aftRSRP = 0
+                j = i - 1
+                if j >= 0:
+                    while True:
+                        # print 'qian xiang...'
+                        # print j
+                        if finalmap[j][4] != 0:
+                            prenum = 1
+                            preRSRP = finalmap[j][5]/finalmap[j][4]
+                            break
+                        if finalmap[j][2] == 'X':
+                            # print 'zhuanzhe'
+                            break
+                        if j <= 0 :
+                            # print 'yue jie'
+                            break
+                        j = j - 1
+                if i+1 <= len(finalmap):
+                    j = i + 1
+                    while True:
+                        # print 'houxiang'
+                        # print j
+                        if j>=len(finalmap):
+                            # print 'yue jie'
+                            break
+                        if finalmap[j][4] != 0:
+                            aftnum = 1
+                            aftRSRP = finalmap[j][5]/finalmap[j][4]
+                            break
+                        if finalmap[j][2] == 'X':
+                            # print 'zhuan zhe'
+                            break
+                        j = j + 1
+
+                if prenum+aftnum > 0:
+                    tmp = {'Latitude':finalmap[i][0],
+                           'Longitude':finalmap[i][1],
+                           'RSRP':(preRSRP+aftRSRP)/(prenum+aftnum),}
+                else:
+                    tmp = {'Latitude':finalmap[i][0],
+                           'Longitude':finalmap[i][1],
+                           'RSRP':meanRSRP[0],}
+            data_tmp.append(tmp)
+            ##print data_tmp
+
         dd_tmp = {'data': data_tmp,
                  'meanRSRP': meanRSRP,
                  'meanTx': meanTx,
                  'meanRx': meanRx,
                  }
         d_tmp.append(dd_tmp)
+    tmpFile.close()
     finaldata = {'data':d_tmp}
     return finaldata
 
@@ -639,15 +810,16 @@ def getCompareInfo(request):
     return HttpResponse(data)
 
 def getUsers(request):
+    print 'getUsers'
     if request.method=="POST":
         #print 'getUsers'
         db = Mongolink()
         collection = db.Msignal
         #print "starting"
         startTime = str(request.POST['startTime'])+'00000'
-        #print startTime
+        print startTime
         endTime = str(request.POST['endTime'])+'00000'
-        #print endTime
+        print endTime
         lng1 = 116.36199 #float(request.POST['lng1'])
         lat1 = 39.97052 #float(request.POST['lat1'])
         lng2 = 116.36739 + 0.00015 #float(request.POST['lng2'])
@@ -660,6 +832,7 @@ def getUsers(request):
         #print data_tmp
         d_tmp = {'data':data_tmp}
         data =simplejson.dumps(d_tmp)
+        print 'getUsersEnd'
         return HttpResponse(data)
 
 def userTrack(request):
@@ -667,7 +840,7 @@ def userTrack(request):
     return render(request, 'track.html')
 
 def getUserInfo(request):
-    #print 'ahere'
+    print 'getUserInfo'
     if request.method == 'POST':
         #print "starting"
         startTime = str(request.POST['startTime'])+'00000'
@@ -681,18 +854,23 @@ def getUserInfo(request):
         username = idValue.split(' ')
         #print username
         data_tmp=[]
-        for each in username:
-            if each != '':
-                #print each
-                d_tmp = lablink(startTime, endTime, each, signal)
-                data_tmp.append(d_tmp)
-                #print 'append success'
+        data1 = DATA.changedData()
+        data2 = DATA.changedData3()
+        # data_tmp.append(data1)
+        data_tmp.append(data2)
+        # for each in username:
+        #     if each != '':
+        #         #print each
+        #         d_tmp = lablink(startTime, endTime, each, signal)
+        #         data_tmp.append(d_tmp)
+        #         #print 'append success'
         data_tmp2 = {'data':data_tmp}
         #print data_tmp2
         data = simplejson.dumps(data_tmp2)
         #data = simplejson.dumps(lablink(startTime, endTime, idValue))
     else:
         data = simplejson.dumps()
+    print 'getUserTrackEnd'
     return HttpResponse(data)
 
 def allFlot(lng1, lng2, lat1, lat2, startTime, endTime):

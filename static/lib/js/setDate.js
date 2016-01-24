@@ -1,50 +1,58 @@
-﻿function timechoose(t)
-{   
-    if(document.all.timechoose.style.display=="block")
-	{flag=false;}
-	else
-	{var flag = true;$(".timechoose").toggle();}
-	
+﻿//日期时间选择框部分
+function timechoose(t){   
+    if(document.all.timechoose.style.display=="block"){
+		flag=false;}
+	else{
+		var flag = true;
+		$(".timechoose").toggle();
+	}
+
 	$("#btn1").click(function(){
 		if(flag){
-  document.getElementById(t).value=document.getElementById("YYYY").value+"-"+document.getElementById("MM").value+"-"+document.getElementById("DD").value+" "+document.getElementById("HH").value+":"+document.getElementById("MN").value;
-  $(".timechoose").hide();
-  flag = false;
-    }
-});
-$("#btn2").click(function()
-{YYYYMMDDstart()});
+  			document.getElementById(t).value=document.getElementById("YYYY").value+"-"+document.getElementById("MM").value+"-"+document.getElementById("DD").value+" "+document.getElementById("HH").value+":"+document.getElementById("MN").value;
+  		$(".timechoose").hide();
+  		flag = false;
+    	}
+	});
+	$("#btn2").click(function(){	
+		if(flag){
+  			document.getElementById(t).value="";
+			//if(document.getElementById(t).value==""){
+  			YYYYMMDDstart();
+			//}
+		}	
+	});
 }
 
-function YYYYMMDDstart(){   
+function YYYYMMDDstart(){ 
+	  
 	MonHead = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];   
 	
 	//先给年下拉框赋内容   
 	var y  = new Date().getFullYear();  
-	for (var i = 2015; i < (y+1); i++) //以今年为准，前30年，后30年   
-		   document.reg_testdate.YYYY.options.add(new Option(" "+ i , i));   
+	for (var i = 2015; i < (y+1); i++) // 从2015年开始到今年   
+		   {document.reg_testdate.YYYY.options.add(new Option(" "+ i , i));   }
 	
 	//赋月份的下拉框   
 	for (var i = 1; i < 13; i++)   
-		   document.reg_testdate.MM.options.add(new Option(" " + addZero(i) ,  addZero(i)));   
-	for (var i = 1; i < 25; i++)   
-		   document.reg_testdate.HH.options.add(new Option(" " + addZero(i),  addZero(i)));   
-		   	for (var i = 1; i < 61; i++)   
-		   document.reg_testdate.MN.options.add(new Option(" " + addZero(i),  addZero(i)));   
-	
-	document.reg_testdate.YYYY.value = y;   
-	document.reg_testdate.MM.value = new Date().getMonth() + 1;   
+		  { document.reg_testdate.MM.options.add(new Option(" " + addZero(i) ,  addZero(i)));  } 
+	for (var i = 0; i < 24; i++)   
+		   {document.reg_testdate.HH.options.add(new Option(" " + addZero(i),  addZero(i))); }  
+    for (var i = 0; i < 60; i++)   
+		   {document.reg_testdate.MN.options.add(new Option(" " + addZero(i),  addZero(i)));  } 
 	var n = MonHead[new Date().getMonth()];   
 	if (new Date().getMonth() ==1 && IsPinYear(YYYYvalue)) n++;   
-		writeDay(n); //赋日期下拉框Author:meizz   
-	document.reg_testdate.DD.value = new Date().getDate();  
-	document.reg_testdate.HH.value = new Date().getHours(); 
-	document.reg_testdate.MN.value = new Date().getMinutes();      
+		writeDay(n); //赋日期下拉框Author:meizz
+	document.reg_testdate.YYYY.value = y;
+	document.reg_testdate.MM.value = addZero(new Date().getMonth() + 1 );   
+	var day=   new Date();
+	document.reg_testdate.DD.value =  addZero(day.getDate());  
+	document.reg_testdate.HH.value =  addZero(day.getHours()); 
+	//alert(day.getMinutes());
+	document.reg_testdate.MN.value = addZero(day.getMinutes());  
+	
 }   
-if(document.attachEvent)   
-	window.attachEvent("onload", YYYYMMDDstart);   
-else   
-window.addEventListener('load', YYYYMMDDstart, false);   
+   
 function YYYYDD(str) //年发生变化时日期发生变化(主要是判断闰平年)   
 {   
 	var MMvalue = document.reg_testdate.MM.options[document.reg_testdate.MM.selectedIndex].value;   

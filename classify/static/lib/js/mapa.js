@@ -55,7 +55,7 @@
 	    var ret=getHisTime();//获取时间函数，action.js中
 		var startTime=ret.s;
 	    var endTime=ret.e;
-		//alert(startTime+"dao"+endTime)
+		////alert(startTime+"dao"+endTime)
 		
 		
 		var bs = map.getBounds();   //获取可视区域
@@ -122,9 +122,13 @@
 						 $("#txshow").html("")
 						 $("#rxshow").html("")
 						 for (var i=0;i<obj.data.length;i++){
+							 pic="/static/lib/img/user"+i+".png"
+							 var myIcon = new BMap.Icon(pic, new BMap.Size(21, 21),{ anchor: new BMap.Size(20+i*3, 24),});
 	 					 	for(var k=0;k<obj.data[i].length;k++){
 								map.addOverlay(getLab(obj.data[i][k]));
-								TrackShow(i,k,obj.data)
+								TrackShow(i,k,obj.data)							
+								var marker= new BMap.Marker(new BMap.Point(obj.data[i][k].Longitude,obj.data[i][k].Latitude), {icon: myIcon});		
+								map.addOverlay(marker);	
 							}
 			  			  }
 					   }
@@ -246,7 +250,7 @@
     		window.clearInterval(backTime);//清楚计时器，因为我后边用到了计时，所以这里要初始化，清除别的计时器对他的影响
 			var usersStyle=document.all.users.style.display;
 			var showStyle=document.all.div_show.style.display;
-			alert('getData');
+			//alert('getData');
 			if(usersStyle=="block"||showStyle=="block"){
 				return; 
    			}	
@@ -270,21 +274,21 @@
 	    j = 0
 	    window.clearInterval(backTime);
 	    
-			alert("getTrack")
+			//alert("getTrack")
 			$("#rsrpshow").html("")
 			$("#txshow").html("")
   			$("#rxshow").html("")
 			var ret=getHisTime();
     		var startTime=ret.s;
 			var endTime=ret.e;
-	//alert(startTime+"dao"+endTime)
+	////alert(startTime+"dao"+endTime)
    		 	
    		 	var ref=refine();
 			var operator=ref.o;
    		 	var signal=ref.s;
 			var interval=ref.i;
 			var idValue=ref.u;//被选中的用户名
-    //alert(idValue);
+    ////alert(idValue);
 			var str=document.getElementsByName("userlist");
 			var userChoose=false;
 			for (var i=0;i<str.length;i++){
@@ -327,11 +331,11 @@
 	function display(data)
         {
           window.clearInterval(backTime);
-          backTime = window.setInterval(function(){delay(data);}, 1000);
+          backTime = window.setInterval(function(){delay(data);}, 500);
         }
-	
+	var userMarkers=new Array();
 	function delay(data){ 	
-        //alert("delay")
+        ////alert("delay")
 		var str=document.getElementsByName("userlist");
 		var userChoose=false;
 		for (var i=0;i<str.length;i++){
@@ -340,7 +344,7 @@
 				break;
   			}
 		} 
-		//alert(userChoose)
+		////alert(userChoose)
 		if(userChoose==true){
 		   var maxj=0;
 		   for (var k=0;k<data.length;k++){
@@ -348,22 +352,24 @@
 			    maxj=  data[k].length;		   
 		     }
 		   } 
-		   if(j<maxj-1) {
+		   if(j<maxj) {
 		   		for (var i=0;i<data.length;i++){
-			  		if(j<data[i].length-1){
+					 pic="/static/lib/img/user"+i+".png"
+					 var myIcon = new BMap.Icon(pic, new BMap.Size(21, 21),{ anchor: new BMap.Size(20+i*3, 24),});
+			  		if(j<data[i].length){
 			   			map.addOverlay(getLab(data[i][j]));
-						TrackShow(i,j,data)
-
+						TrackShow(i,j,data);
+						map.removeOverlay(userMarkers[i]);
+						var marker= new BMap.Marker(new BMap.Point(data[i][j].Longitude,data[i][j].Latitude), {icon: myIcon});
+						userMarkers[i]=marker;
+						map.addOverlay(marker);	
 					}
-			  		if(j==data[i].length-2){
-			   			map.addOverlay(getLab(data[i][j+1]));
-			  		}
 			  	}
 			  j++;
             }
            else
            { 
-            //alert('end');
+            ////alert('end');
             j = 0;
             window.clearInterval(backTime);
            }
@@ -373,16 +379,16 @@
 			if(j<data.length) {
 				map.clearOverlays();
 			   for (var i=0;i<data[j].data.length;i++){
-			     // alert(j);
-				  //alert(data[j][i].RSRP)
-				  //alert(data[j].meanRSRP[0,1,2])
+			     // //alert(j);
+				  ////alert(data[j][i].RSRP)
+				  ////alert(data[j].meanRSRP[0,1,2])
 			      map.addOverlay(getLab(data[j].data[i]));
 			   }
 			   j++;
 			}
             else
             { 
-            //alert('end');
+            ////alert('end');
                j = 0;
                window.clearInterval(backTime);
             }
@@ -400,7 +406,22 @@
 	
 	 //画网格的函数	   
 	function getLab(data){
-		var length="32px";
+		var str=document.getElementsByName("userlist");
+		var userChoose=false;
+		for (var i=0;i<str.length;i++){
+  			if(str[i].checked == true){
+   			    userChoose=true;
+				break;
+  			}
+		}
+		////alert(userChoose)
+		if(userChoose==true){
+				var length="16px";
+				var longpianyi=0.00015/4
+				var latpianyi = 0.00011/4
+		}else{var length = '32px'
+			  var longpianyi=0
+			  var latpianyi=0}
 		var str=document.getElementsByName("signal");
 		var signal="";
 		for (i=0;i<str.length;i++)
@@ -421,7 +442,7 @@
 						$(".legend").append("<p><div class='coloris' style='background-color:#006699;'></div>≥3Mbps</p><p><div class='coloris' style='background-color:#0099CC;'></div>1~3Mbps</p><p><div class='coloris' style='background-color:#339933;'></div>500~1000Kbps</p><p><div class='coloris' style='background-color:#FFFF00;'></div>100~500Kbps</p><p><div class='coloris' style='background-color:#FF6600;'></div>10~100Kbps</p><p><div class='coloris' style='background-color:red;'></div>≤10Kbps</p>")
 				}
 			    var myLabel = new BMap.Label("",     //为lable填写内容
-					{position:new BMap.Point(data.Longitude,data.Latitude)});           //label的位置
+					{position:new BMap.Point(data.Longitude+longpianyi,data.Latitude-latpianyi)});           //label的位置
 					 myLabel.setStyle({       //给label设置样式，任意的CSS都是可以的
 					 height:length ,                //高度
 					 width:length,                 //宽
@@ -447,7 +468,11 @@
 				else  {   
 					myLabel.setStyle({background:"#006699",});                 			
 				}
-				myLabel.setTitle("数据数："+data.peopleNum);  
+				if(userChoose==true){
+					myLabel.setTitle("经度："+data.Longitude+"，纬度："+data.Latitude+"；时间："+data.time+"；错误码："+data.errorCode);
+				}
+				else{
+				myLabel.setTitle("数据数："+data.peopleNum);}  
 			    return myLabel;
 			}
 				
@@ -455,13 +480,13 @@
 	//获取服务器中的用户列表显示到页面	   
     function showUser() {
 		if(document.all.users.style.display=="block"){$("#users").html("");}
-	    else{       //alert('showuser')
+	    else{       ////alert('showuser')
 	            j = 0;
 	            window.clearInterval(backTime);
 	            var ret=getHisTime();
 				var startTime=ret.s;
 				var endTime=ret.e;
-				//alert(startTime+"dao"+endTime)
+				////alert(startTime+"dao"+endTime)
 				var ref=refine();
 				var operator=ref.o;
 				var signal=ref.s;
@@ -522,7 +547,7 @@
 //						{
 //							if ((lngjud>0.05) || (latjud>0.05))
 //								{
-//									alert('wrong');
+//									//alert('wrong');
 //									//var polyline = new BMap.Polyline([new BMap.Point(data[i][j].Longitude,data[i][j].Latitude), new BMap.Point(data[i][j].Longitude,data[i][j].Latitude)], {strokeColor:color, strokeWeight:6, strokeOpacity:0.7});
 									//map.addOverlay(polyline);
 
