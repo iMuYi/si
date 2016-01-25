@@ -162,3 +162,10 @@ def changedData3():
         {'Latitude': 39.97041, 'style': 'l', 'RSRP': -68, 'Longitude': 116.36619, 'time': u'20160118095441171'},
         {'Latitude': 39.97041, 'style': 'l', 'RSRP': -72, 'Longitude': 116.36589, 'time': u'20160118095521172'}]
     return ab
+def changedData4():
+    ab=[{'Latitude': 39.97041, 'style': 'l', 'RSRP': -81, 'Longitude': 116.36529, 'time': u'20160124153547411'},
+        {'Latitude': 39.97041, 'style': 'l', 'RSRP': -86, 'Longitude': 116.36514, 'time': u'20160124160557324'},
+        # {'Latitude': 39.96975, 'style': 'l', 'RSRP': -86, 'Longitude': 116.36514, 'time': u'20160124160557324'},
+        # {'Latitude': 39.96975, 'style': 'l', 'RSRP': -86, 'Longitude': 116.36364, 'time': u'20160124160557324'},
+        {'Latitude': 39.97041, 'style': 'l', 'RSRP': -75, 'Longitude': 116.36364, 'time': u'20160124170028240'}]
+    return ab

@@ -142,7 +142,12 @@ def Street(mapArray,lat1,lng1,lng2):
     return mapArray
     ##print len(mapArray)
     ##print mapArray
-
+def easyStreet(mapSet,lat1,lng1,lng2,no):
+    while True:
+        loc = [lat1,lng1,no]
+        mapSet.append(loc)
+        lng1 = lng1 + 0.00015
+        lng1 = float
 def Road(mapArray,lat1,lat2,lng1):
     while True:
         loc = [lat1,lng1,'R']

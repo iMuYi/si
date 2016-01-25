@@ -469,7 +469,7 @@
 					myLabel.setStyle({background:"#006699",});                 			
 				}
 				if(userChoose==true){
-					myLabel.setTitle("经度："+data.Longitude+"，纬度："+data.Latitude+"；时间："+data.time+"；错误码："+data.errorCode);
+					myLabel.setTitle("经度："+data.Longitude+"，纬度："+data.Latitude+"；时间："+data.time+"；大小："+data.RSRP);
 				}
 				else{
 				myLabel.setTitle("数据数："+data.peopleNum);}  

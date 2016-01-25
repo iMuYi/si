@@ -271,13 +271,13 @@ def lablink(startTime, endTime, idValue, signal):
                                     #'LocEor':LocEor
                                   }
                             data_tmp.append(tmp)
-        data_tmp2 = DATA.changedData()
+        data_tmp2 = DATA.changedData4()
         #print data_tmp
         data_tmp = complateData(data_tmp)
         #print(data_tmp)
         print len(data_tmp)
         print 'lablinkEnd'
-        return data_tmp2
+        return data_tmp
 
 def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, flag):
     print 'AllMap'
@@ -856,14 +856,16 @@ def getUserInfo(request):
         data_tmp=[]
         data1 = DATA.changedData()
         data2 = DATA.changedData3()
-        # data_tmp.append(data1)
-        data_tmp.append(data2)
-        # for each in username:
-        #     if each != '':
-        #         #print each
-        #         d_tmp = lablink(startTime, endTime, each, signal)
-        #         data_tmp.append(d_tmp)
-        #         #print 'append success'
+        # if "a00000556d59d6" in idValue:
+        #     data_tmp.append(data1)
+        # if "867065021900761" in idValue:
+        #     data_tmp.append(data2)
+        for each in username:
+            if each != '':
+                #print each
+                d_tmp = lablink(startTime, endTime, each, signal)
+                data_tmp.append(d_tmp)
+                #print 'append success'
         data_tmp2 = {'data':data_tmp}
         #print data_tmp2
         data = simplejson.dumps(data_tmp2)
@@ -1132,7 +1134,85 @@ def getunWifiInfo(request):
     #     data = simplejson.dumps(data_tmp)
     #     return data
 
+def userMove(request):
+    '''分为6个点：
+            1：学十
+            2：学三
+            3：学二十九
+            4：科研楼
+            5：新食堂
+            6：老食堂
+    统计一天内的所有用户，得到用户list;
+    统计用户每小时所属的地图:
+            userSet(0,0,1,1,1,1,1,2,2,2,2,……）
+    各地点用户个数表：[N1,N2,N3,……,N23,N24] N1=[1,2,3,4,5,6]
+        第1个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N1=[a,b,c,d,e,f]
+        第2个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N2=[a,b,c,d,e,f]
+        第3个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N3=[a,b,c,d,e,f]
+        ……
+        第23个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N4=[a,b,c,d,e,f]
+        第24个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N5=[a,b,c,d,e,f]
 
+    每个小时有一个6*6的转移矩阵 M=[[1],[2],[3],[4],[5],[6]]
+    传送24个转移矩阵T=[M1,M2,M3,……,M23,M24]
+            '''
+    db = Mongolink()
+    collection = db.Msignal
+    startTime = '20160124151200000'
+    endTime = '20160125151200000'
+    lng1 = 116.36199 #float(request.POST['lng1'])
+    lat1 = 39.97052 #float(request.POST['lat1'])
+    lng2 = 116.36739 + 0.00015 #float(request.POST['lng2'])
+    lat2 = 39.96799 #float(request.POST['lat2'])
+    user = collection.find({'Longitude': {'$gt': lng1, '$lt': lng2}, 'Latitude': {'$gt': lat2, '$lt': lat1}, 'GetTime': {'$gt': startTime, '$lt': endTime}})
+    userInfo=[]
+    ChinaMobile = ['GPRS','EDGE','HSDPA','LTE']
+    Unicom = ['EHRPD','HSPA','HSPAP','HSUPA','IDEN','UMTS']
+    Telcom = ['CDMA','1xRTT','EVDO_0','EVDO_A','EVDO_B']
+    for each in user:
+        if each['SS_3G']!=-113:
+            if each['NetworkType'] in ChinaMobile:
+                tmp = {'IMEI':each['U_ID'],
+                       'Operator':'ChinaMobile',
+                       'RSRP':each['SS_3G'],
+                       'TX':each['TX'],
+                       'RX':each['RX'],
+                       'GetTime':each['GetTime'],
+                       'Longitude':each['Longitude'],
+                       'Latitude':each['Latitude'],
+                   }
+            elif each['NetworkType'] in Unicom:
+                tmp = {'IMEI':each['U_ID'],
+                       'Operator':'Unicom',
+                       'RSRP':each['SS_3G'],
+                       'TX':each['TX'],
+                       'RX':each['RX'],
+                       'GetTime':each['GetTime'],
+                       'Longitude':each['Longitude'],
+                       'Latitude':each['Latitude'],
+                   }
+            else:
+                tmp = {'IMEI':each['U_ID'],
+                       'Operator':'Telcom',
+                       'RSRP':each['SS_3G'],
+                       'TX':each['TX'],
+                       'RX':each['RX'],
+                       'GetTime':each['GetTime'],
+                       'Longitude':each['Longitude'],
+                       'Latitude':each['Latitude'],
+                   }
+            userInfo.append(tmp)
+
+    username=list(set(userInfo))
+    N=[]
+    for each in username:
+        M=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        for every in userInfo:
+            if every['IMEI'] == each:
+                for i in range(1,7):
+                   if every['Longitude']<= i['Longitude']+0.0003 and every['Longitude'] >= i['Longitude']-0.0003 and every['Latitude']<= i['Latitude']+0.0003 and every['Latitude'] >= i['Latitude']-0.0003:
+
+    return 0
 
 
 

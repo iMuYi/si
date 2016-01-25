@@ -1,6 +1,8 @@
 __author__ = 'lenovo'
-a=[1,2,3]
-for i in range(0,10):
-    print i
-    i = i + 1
-    print i
+a={'a':1}
+b={'a':2}
+c={'a':4}
+d=[a,c,b]
+print d
+m=sorted(d,key=lambda x:x['a'])
+print m
