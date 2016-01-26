@@ -1,23 +1,68 @@
 __author__ = 'lenovo'
 
-'''分为6个点：
-            1：学十
-            2：学三
-            3：学二十九
-            4：科研楼
-            5：新食堂
-            6：老食堂
-    统计一天内的所有用户，得到用户list;
-    统计用户每小时所属的地图:
-            userSet(0,0,1,1,1,1,1,2,2,2,2,……）
-    各地点用户个数表：[N1,N2,N3,……,N23,N24]
-        第1个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N1=[a,b,c,d,e,f]
-        第2个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N2=[a,b,c,d,e,f]
-        第3个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N3=[a,b,c,d,e,f]
-        ……
-        第23个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N4=[a,b,c,d,e,f]
-        第24个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N5=[a,b,c,d,e,f]
 
-    每个小时有一个6*6的转移矩阵M=[[1],[2],[3],[4],[5],[6]]
-    传送24个转移矩阵T=[M1,M2,M3,……,M23,M24]
-            '''
+def disTime(startTime):
+    timeArray=[]
+    for i in range(0,25):
+        if i<10:
+            time = startTime[0:8]+'0'+str(i)+'0000000'
+        else:
+            time = startTime[0:8]+str(i)+'0000000'
+        timeArray.append(time)
+    return timeArray
+
+def userMove():
+    startTime = '20160126'
+    userLocList=[[{'LocNum':1,'GetTime':'20160126010000000'},{'LocNum':3,'GetTime':'20160126030000000'},{'LocNum':6,'GetTime':'20160126070000000'},{'LocNum':3,'GetTime':'20160126100000000'}],
+                 [{'LocNum':2,'GetTime':'20160126010000000'},{'LocNum':1,'GetTime':'20160126030000000'},{'LocNum':4,'GetTime':'20160126070000000'},{'LocNum':1,'GetTime':'20160126100000000'}],
+                 [{'LocNum':3,'GetTime':'20160126010000000'},{'LocNum':2,'GetTime':'20160126040000000'},{'LocNum':2,'GetTime':'20160126070000000'},{'LocNum':1,'GetTime':'20160126100000000'}],
+                 [{'LocNum':5,'GetTime':'20160126010000000'},{'LocNum':6,'GetTime':'20160126070000000'},{'LocNum':6,'GetTime':'20160126080000000'},{'LocNum':1,'GetTime':'20160126110000000'}]]
+    timeArray=disTime(startTime)
+    T=[]
+    for each in userLocList:
+        M=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        for every in each:
+            for i in range(0,24):
+                if every['GetTime']>=timeArray[i] and every['GetTime']<timeArray[i+1]:
+                    M[i]=every['LocNum']
+                    break
+        tmp = 0
+        for i in range(0,24):
+            if M[i]!=0:
+                if tmp ==0 :
+                    firstTmp = M[i]
+                tmp = M[i]
+            else:
+               M[i] = tmp
+        i = 0
+        while M[i] == 0:
+            M[i]=firstTmp
+            i = i + 1
+        T.append(M)
+    userAlldayList = []
+    print T
+    for i in range(0,24):
+        N=[0,0,0,0,0,0]
+        for j in range(0,len(T)):
+            if T[j][i] != 0:
+                k= T[j][i]
+                N[k-1] = N[k-1] + 1
+        userAlldayList.append(N)
+    print userAlldayList
+    userMoveList = []
+    for i in range(0,23):
+        tran=[[0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0]]
+        for j in range(0,len(T)):
+            startPoint = T[j][i]-1
+            endPoint = T[j][i+1]-1
+            if startPoint != endPoint:
+                tran[startPoint][endPoint]=tran[startPoint][endPoint]+1
+        userMoveList.append(tran)
+        print tran
+    return userMoveList
+Move = userMove()

@@ -1134,6 +1134,15 @@ def getunWifiInfo(request):
     #     data = simplejson.dumps(data_tmp)
     #     return data
 
+def disTime(startTime):
+    timeArray=[]
+    for i in range(0,25):
+        if i<10:
+            time = startTime[0:8]+'0'+str(i)+'0000000'
+        else:
+            time = startTime[0:8]+str(i)+'0000000'
+        timeArray.append(time)
+    return timeArray
 def userMove(request):
     '''分为6个点：
             1：学十
@@ -1158,63 +1167,78 @@ def userMove(request):
             '''
     db = Mongolink()
     collection = db.Msignal
-    startTime = '20160124151200000'
-    endTime = '20160125151200000'
+    startTime = str(request.POST['startTime'])+'00000'
+    print startTime
+    endTime = str(request.POST['endTime'])+'00000'
+    print endTime
     lng1 = 116.36199 #float(request.POST['lng1'])
     lat1 = 39.97052 #float(request.POST['lat1'])
     lng2 = 116.36739 + 0.00015 #float(request.POST['lng2'])
     lat2 = 39.96799 #float(request.POST['lat2'])
     user = collection.find({'Longitude': {'$gt': lng1, '$lt': lng2}, 'Latitude': {'$gt': lat2, '$lt': lat1}, 'GetTime': {'$gt': startTime, '$lt': endTime}})
-    userInfo=[]
-    ChinaMobile = ['GPRS','EDGE','HSDPA','LTE']
-    Unicom = ['EHRPD','HSPA','HSPAP','HSUPA','IDEN','UMTS']
-    Telcom = ['CDMA','1xRTT','EVDO_0','EVDO_A','EVDO_B']
+    username_tmp=[]
     for each in user:
-        if each['SS_3G']!=-113:
-            if each['NetworkType'] in ChinaMobile:
-                tmp = {'IMEI':each['U_ID'],
-                       'Operator':'ChinaMobile',
-                       'RSRP':each['SS_3G'],
-                       'TX':each['TX'],
-                       'RX':each['RX'],
-                       'GetTime':each['GetTime'],
-                       'Longitude':each['Longitude'],
-                       'Latitude':each['Latitude'],
-                   }
-            elif each['NetworkType'] in Unicom:
-                tmp = {'IMEI':each['U_ID'],
-                       'Operator':'Unicom',
-                       'RSRP':each['SS_3G'],
-                       'TX':each['TX'],
-                       'RX':each['RX'],
-                       'GetTime':each['GetTime'],
-                       'Longitude':each['Longitude'],
-                       'Latitude':each['Latitude'],
-                   }
-            else:
-                tmp = {'IMEI':each['U_ID'],
-                       'Operator':'Telcom',
-                       'RSRP':each['SS_3G'],
-                       'TX':each['TX'],
-                       'RX':each['RX'],
-                       'GetTime':each['GetTime'],
-                       'Longitude':each['Longitude'],
-                       'Latitude':each['Latitude'],
-                   }
-            userInfo.append(tmp)
-
-    username=list(set(userInfo))
-    N=[]
+        username_tmp.append(each['U_ID'])
+    username=list(set(username_tmp  ))
+    userLocList = []
     for each in username:
-        M=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        for every in userInfo:
-            if every['IMEI'] == each:
+        if each != '':
+            d_tmp = lablink(startTime, endTime, each, 'RSRP')
+            dd_tmp=[]
+            for every in d_tmp:
                 for i in range(1,7):
-                   if every['Longitude']<= i['Longitude']+0.0003 and every['Longitude'] >= i['Longitude']-0.0003 and every['Latitude']<= i['Latitude']+0.0003 and every['Latitude'] >= i['Latitude']-0.0003:
+                    if every['Longitude']<= i['Longitude']+0.0003 and every['Longitude'] >= i['Longitude']-0.0003 and every['Latitude']<= i['Latitude']+0.0003 and every['Latitude'] >= i['Latitude']-0.0003:
+                        tmp = {'username':each,
+                               'LocNum':i,
+                               'GetTime':every['GetTime']}
+                        dd_tmp = dd_tmp.append(tmp)
+            userLocList.append(dd_tmp)
+    timeArray=disTime(startTime)
+    T=[]
+    for each in userLocList:
+        M=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        for every in each:
+            for i in range(0,24):
+                if every['GetTime']>=timeArray[i] and every['GetTime']<timeArray[i+1]:
+                    M[i]=every['LocNum']
+                    break
+        tmp = 0
+        for i in range(0,24):
+            if M[i]!=0:
+                if tmp ==0 :
+                    firstTmp = M[i]
+                tmp = M[i]
+            else:
+               M[i] = tmp
+        i = 0
+        while M[i] == 0:
+            M[i]=firstTmp
+            i = i + 1
+        T.append(M)
+    userAlldayList = []
+    for i in range(0,24):
+        N=[0,0,0,0,0,0]
+        for j in range(0,len(T)):
+            if T[j][i]['LocNum'] != 0:
+                k= T[j][i]['LocNum']
+                N[k-1] = N[k-1] + 1
+        userAlldayList.append(N)
 
-    return 0
-
-
-
-
-
+    userMoveList = []
+    for i in range(0,23):
+        tran=[[0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0]]
+        for j in range(0,len(T)):
+            startPoint = T[j][i]['LocNum']
+            endPoint = T[j][i+1]['LocNum']
+            if startPoint != endPoint:
+                tran[startPoint][endPoint]=tran[startPoint][endPoint]+1
+        userMoveList.append(tran)
+    data_tmp = {'userNum':userAlldayList,
+            'userMoveList':userMoveList}
+    data = simplejson.dumps(data_tmp)
+    return data

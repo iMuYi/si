@@ -1,8 +1,8 @@
 __author__ = 'lenovo'
-a={'a':1}
-b={'a':2}
-c={'a':4}
-d=[a,c,b]
-print d
-m=sorted(d,key=lambda x:x['a'])
-print m
+a=[1,2,3]
+b=['a','b','c']
+for each in a:
+    for every in b:
+        if b!='b':
+            print str(each)+every
+            break
