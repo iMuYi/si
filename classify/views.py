@@ -239,7 +239,8 @@ def lablink(startTime, endTime, idValue, signal):
             for every in finalmap:
                 if RSRP != -113:
                     if every[2] == 'S':
-                        if (lat <= every[0] + 0.00011) and (lat >= every[0] - 0.00022) and (lng >= every[1]) and (lng <= every[1]+0.00015):
+                        if (lat <= every[0] + 0.0003) and (lat >= every[0] - 0.0003) and (lng >= every[1]- 0.0003) and (lng <= every[1]+0.0003):
+                        #if (lat <= every[0] + 0.00011) and (lat >= every[0] - 0.00022) and (lng >= every[1]) and (lng <= every[1]+0.00015):
                             tmp = {
                                     'Longitude': every[1],
                                     'Latitude': every[0],
@@ -251,7 +252,8 @@ def lablink(startTime, endTime, idValue, signal):
                             data_tmp.append(tmp)
                             break
                     elif every[2] == 'R':
-                        if (lat <= every[0]) and (lat >= every[0] - 0.00011) and (lng >= every[1] - 0.00015) and (lng <= every[1]+0.0003):
+                        if (lat <= every[0] + 0.0003) and (lat >= every[0] - 0.0003) and (lng >= every[1]- 0.0003) and (lng <= every[1]+0.0003):
+                        #if (lat <= every[0]) and (lat >= every[0] - 0.00011) and (lng >= every[1] - 0.00015) and (lng <= every[1]+0.0003):
                             tmp = {
                                     'Longitude': every[1],
                                     'Latitude': every[0],
@@ -262,7 +264,8 @@ def lablink(startTime, endTime, idValue, signal):
                             data_tmp.append(tmp)
                             break
                     elif every[2] =='X':
-                        if (lat <= every[0]) and (lat >= every[0] - 0.00011) and (lng >= every[1]) and (lng <= every[1]+0.00015):
+                        if (lat <= every[0] + 0.0003) and (lat >= every[0] - 0.0003) and (lng >= every[1]- 0.0003) and (lng <= every[1]+0.0003):
+                        #if (lat <= every[0]) and (lat >= every[0] - 0.00011) and (lng >= every[1]) and (lng <= every[1]+0.00015):
                             tmp = {
                                     'Longitude': every[1],
                                     'Latitude': every[0],
@@ -1133,7 +1136,8 @@ def getunWifiInfo(request):
     #                }
     #     data = simplejson.dumps(data_tmp)
     #     return data
-
+def Move(request):
+    return render(request,'move.html')
 def disTime(startTime):
     timeArray=[]
     for i in range(0,25):
@@ -1144,32 +1148,12 @@ def disTime(startTime):
         timeArray.append(time)
     return timeArray
 def userMove(request):
-    '''分为6个点：
-            1：学十
-            2：学三
-            3：学二十九
-            4：科研楼
-            5：新食堂
-            6：老食堂
-    统计一天内的所有用户，得到用户list;
-    统计用户每小时所属的地图:
-            userSet(0,0,1,1,1,1,1,2,2,2,2,……）
-    各地点用户个数表：[N1,N2,N3,……,N23,N24] N1=[1,2,3,4,5,6]
-        第1个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N1=[a,b,c,d,e,f]
-        第2个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N2=[a,b,c,d,e,f]
-        第3个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N3=[a,b,c,d,e,f]
-        ……
-        第23个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N4=[a,b,c,d,e,f]
-        第24个小时在‘学十’（1）——‘老食堂’（6）的用户个数：N5=[a,b,c,d,e,f]
 
-    每个小时有一个6*6的转移矩阵 M=[[1],[2],[3],[4],[5],[6]]
-    传送24个转移矩阵T=[M1,M2,M3,……,M23,M24]
-            '''
     db = Mongolink()
     collection = db.Msignal
-    startTime = str(request.POST['startTime'])+'00000'
+    startTime = str(request.POST['startDate'])
     print startTime
-    endTime = str(request.POST['endTime'])+'00000'
+    endTime = startTime[0:8]+'235900000'
     print endTime
     lng1 = 116.36199 #float(request.POST['lng1'])
     lat1 = 39.97052 #float(request.POST['lat1'])
@@ -1181,18 +1165,36 @@ def userMove(request):
         username_tmp.append(each['U_ID'])
     username=list(set(username_tmp  ))
     userLocList = []
+    print username
+    mappoint=[{'Longitude':116.363419,'Latitude':39.970383},
+              {'Longitude':116.362642,'Latitude':39.968984},
+              {'Longitude':116.36699,'Latitude':39.969637},
+              {'Longitude':116.365332,'Latitude':39.970335},
+              {'Longitude':116.363302,'Latitude':39.969775},
+              {'Longitude':116.365463,'Latitude':39.969246}]
+
+
     for each in username:
+
         if each != '':
             d_tmp = lablink(startTime, endTime, each, 'RSRP')
+            print d_tmp
             dd_tmp=[]
             for every in d_tmp:
-                for i in range(1,7):
-                    if every['Longitude']<= i['Longitude']+0.0003 and every['Longitude'] >= i['Longitude']-0.0003 and every['Latitude']<= i['Latitude']+0.0003 and every['Latitude'] >= i['Latitude']-0.0003:
+                for i in range(0,len(mappoint)):
+                    #print i
+                    if every['Longitude']<= mappoint[i]['Longitude']+0.0003 and every['Longitude'] >= mappoint[i]['Longitude']-0.0003 and every['Latitude']<= mappoint[i]['Latitude']+0.0003 and every['Latitude'] >= mappoint[i]['Latitude']-0.0003:
                         tmp = {'username':each,
-                               'LocNum':i,
-                               'GetTime':every['GetTime']}
-                        dd_tmp = dd_tmp.append(tmp)
-            userLocList.append(dd_tmp)
+                               'LocNum':i+1,
+                               'GetTime':every['time']}
+                        #print 'find one..'
+                        dd_tmp.append(tmp)
+                        # break
+            if dd_tmp != []:
+                userLocList.append(dd_tmp)
+
+    print 'userLocList Done'
+    print userLocList
     timeArray=disTime(startTime)
     T=[]
     for each in userLocList:
@@ -1214,16 +1216,23 @@ def userMove(request):
         while M[i] == 0:
             M[i]=firstTmp
             i = i + 1
+            if i == len(M):
+                break
         T.append(M)
+
+    print 'userTranList Done'
+    print T
     userAlldayList = []
     for i in range(0,24):
         N=[0,0,0,0,0,0]
         for j in range(0,len(T)):
-            if T[j][i]['LocNum'] != 0:
-                k= T[j][i]['LocNum']
+            if T[j][i] != 0:
+                print j,i,T[j][i]
+                k = T[j][i]
                 N[k-1] = N[k-1] + 1
         userAlldayList.append(N)
-
+    print 'userTransNumList Done'
+    print userAlldayList
     userMoveList = []
     for i in range(0,23):
         tran=[[0,0,0,0,0,0],
@@ -1233,12 +1242,15 @@ def userMove(request):
               [0,0,0,0,0,0],
               [0,0,0,0,0,0]]
         for j in range(0,len(T)):
-            startPoint = T[j][i]['LocNum']
-            endPoint = T[j][i+1]['LocNum']
+            startPoint = T[j][i]-1
+            endPoint = T[j][i+1]-1
             if startPoint != endPoint:
                 tran[startPoint][endPoint]=tran[startPoint][endPoint]+1
         userMoveList.append(tran)
+    print 'userMoveList Done'
+    print userMoveList
+    print 'Done'
     data_tmp = {'userNum':userAlldayList,
             'userMoveList':userMoveList}
     data = simplejson.dumps(data_tmp)
-    return data
+    return HttpResponse(data)

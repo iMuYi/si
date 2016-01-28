@@ -22,5 +22,8 @@ urlpatterns = patterns('',
                         url(r'^getSignalInfo/$', views.getSignalInfo, name='getsignalinfo'),
                         url(r'^getDataInfo/$', views.getDataInfo, name='getdatainfo'),
                         url(r'^userTrack/$', views.userTrack, name='track'),
+                        url(r'^Move/$', views.Move, name='Move'),
+
+                        url(r'^userMove/$', views.userMove, name='Move'),
                         url(r'^getUserInfo/$', views.getUserInfo, name='getuserinfo'),
                         )

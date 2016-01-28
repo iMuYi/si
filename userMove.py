@@ -13,10 +13,29 @@ def disTime(startTime):
 
 def userMove():
     startTime = '20160126'
-    userLocList=[[{'LocNum':1,'GetTime':'20160126010000000'},{'LocNum':3,'GetTime':'20160126030000000'},{'LocNum':6,'GetTime':'20160126070000000'},{'LocNum':3,'GetTime':'20160126100000000'}],
-                 [{'LocNum':2,'GetTime':'20160126010000000'},{'LocNum':1,'GetTime':'20160126030000000'},{'LocNum':4,'GetTime':'20160126070000000'},{'LocNum':1,'GetTime':'20160126100000000'}],
-                 [{'LocNum':3,'GetTime':'20160126010000000'},{'LocNum':2,'GetTime':'20160126040000000'},{'LocNum':2,'GetTime':'20160126070000000'},{'LocNum':1,'GetTime':'20160126100000000'}],
-                 [{'LocNum':5,'GetTime':'20160126010000000'},{'LocNum':6,'GetTime':'20160126070000000'},{'LocNum':6,'GetTime':'20160126080000000'},{'LocNum':1,'GetTime':'20160126110000000'}]]
+    d_tmp = [{'Latitude': 39.97041, 'style': 'l', 'RSRP': -95, 'Longitude': 116.36529, 'time': u'20160125103941033'}, {'Latitude': 39.97041, 'style': 'l', 'RSRP': -98, 'Longitude': 116.36514, 'time': u'20160125155609456'}, {'Latitude': 39.97041, 'style': 'l', 'RSRP': -98, 'Longitude': 116.36514, 'time': u'20160125155619424'}, {'Latitude': 39.97041, 'style': 'l', 'RSRP': -98, 'Longitude': 116.36514, 'time': u'20160125155629430'}]
+    mappoint=[{'Longitude':116.363419,'Latitude':39.970383},
+              {'Longitude':116.362642,'Latitude':39.968984},
+              {'Longitude':116.36699,'Latitude':39.969637},
+              {'Longitude':116.365332,'Latitude':39.970335},
+              {'Longitude':116.363302,'Latitude':39.969775},
+              {'Longitude':116.365463,'Latitude':39.969246}]
+    each = 'aaa'
+    userLocList=[]
+    for every in d_tmp:
+        dd_tmp=[]
+        for i in range(0,len(mappoint)):
+            print i
+            if every['Longitude']<= mappoint[i]['Longitude']+0.0003 and every['Longitude'] >= mappoint[i]['Longitude']-0.0003 and every['Latitude']<= mappoint[i]['Latitude']+0.0003 and every['Latitude'] >= mappoint[i]['Latitude']-0.0003:
+                tmp = {'username':each,
+                       'LocNum':i+1,
+                       'GetTime':every['time']}
+                print 'find one..'
+                dd_tmp.append(tmp)
+        print dd_tmp
+                        # break
+        userLocList.append(dd_tmp)
+    print userLocList
     timeArray=disTime(startTime)
     T=[]
     for each in userLocList:
@@ -27,6 +46,7 @@ def userMove():
                     M[i]=every['LocNum']
                     break
         tmp = 0
+        firstTmp = 4
         for i in range(0,24):
             if M[i]!=0:
                 if tmp ==0 :
@@ -38,6 +58,8 @@ def userMove():
         while M[i] == 0:
             M[i]=firstTmp
             i = i + 1
+            if i ==len(M):
+                break
         T.append(M)
     userAlldayList = []
     print T

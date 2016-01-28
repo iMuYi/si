@@ -24,21 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="mapdis.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mapdis.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="271" column="0" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classify/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3075899">
-              <caret line="1175" column="59" selection-start-line="1175" selection-start-column="59" selection-end-line="1175" selection-end-column="59" />
+            <state vertical-scroll-proportion="0.7653194">
+              <caret line="1252" column="36" selection-start-line="1252" selection-start-column="36" selection-end-line="1252" selection-end-column="36" />
               <folding>
                 <element signature="e#0#55#0" expanded="true" />
                 <element signature="e#557#943#0" expanded="false" />
@@ -46,36 +36,63 @@
                 <element signature="e#1150#1265#0" expanded="false" />
                 <element signature="e#1313#1848#0" expanded="false" />
                 <element signature="e#1897#2855#0" expanded="false" />
+                <element signature="e#2882#3690#0" expanded="false" />
+                <element signature="e#3716#3751#0" expanded="false" />
+                <element signature="e#3773#4277#0" expanded="false" />
+                <element signature="e#4303#4430#0" expanded="false" />
+                <element signature="e#4452#4561#0" expanded="false" />
                 <element signature="e#4670#8079#0" expanded="false" />
-                <element signature="e#18241#20064#0" expanded="false" />
-                <element signature="e#20157#27651#0" expanded="false" />
-                <element signature="e#27683#29352#0" expanded="false" />
-                <element signature="e#34497#37581#0" expanded="false" />
-                <element signature="e#37613#38266#0" expanded="false" />
-                <element signature="e#38360#41746#0" expanded="false" />
+                <element signature="e#11527#18632#0" expanded="false" />
+                <element signature="e#18679#20502#0" expanded="false" />
+                <element signature="e#20595#28089#0" expanded="false" />
+                <element signature="e#28121#29790#0" expanded="false" />
+                <element signature="e#32535#33519#0" expanded="false" />
+                <element signature="e#33635#34872#0" expanded="false" />
+                <element signature="e#34935#38019#0" expanded="false" />
+                <element signature="e#38051#38704#0" expanded="false" />
+                <element signature="e#38798#42184#0" expanded="false" />
+                <element signature="e#42221#44591#0" expanded="false" />
+                <element signature="e#44678#44905#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DATA.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classify/DATA.py">
+      <file leaf-file-name="mapa.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classify/static/lib/js/mapa.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="168" column="114" selection-start-line="167" selection-start-column="10" selection-end-line="168" selection-end-column="114" />
-              <folding>
-                <element signature="e#2738#9432#0" expanded="false" />
-                <element signature="e#9457#17096#0" expanded="false" />
-              </folding>
+              <caret line="495" column="43" selection-start-line="495" selection-start-column="43" selection-end-line="495" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classify/models.py">
+      <file leaf-file-name="move.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classify/templates/move.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+              <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classify/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mapMove.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classify/static/lib/js/mapMove.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="60" column="30" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -91,34 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mapdis.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classify/mapdis.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="149" column="20" selection-start-line="149" selection-start-column="20" selection-end-line="149" selection-end-column="20" />
-              <folding>
-                <element signature="e#6501#8554#0" expanded="false" />
-                <element signature="e#8574#8740#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="userMove.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/userMove.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pring.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pring.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.793103">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -134,11 +128,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mapa.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classify/static/lib/js/mapa.js">
+      <file leaf-file-name="read.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/read.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="482" column="41" selection-start-line="482" selection-start-column="41" selection-end-line="482" selection-end-column="41" />
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -175,7 +169,6 @@
         <option value="$PROJECT_DIR$/wifi.py" />
         <option value="$PROJECT_DIR$/classify/templates/marker.html" />
         <option value="$PROJECT_DIR$/classify/templates/blank.html" />
-        <option value="$PROJECT_DIR$/classify/urls.py" />
         <option value="$PROJECT_DIR$/mapdis.py" />
         <option value="$PROJECT_DIR$/dijkstra.py" />
         <option value="$PROJECT_DIR$/floyd.py" />
@@ -184,8 +177,11 @@
         <option value="$PROJECT_DIR$/classify/mapdis.py" />
         <option value="$PROJECT_DIR$/pring.html" />
         <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/classify/urls.py" />
+        <option value="$PROJECT_DIR$/classify/templates/move.html" />
         <option value="$PROJECT_DIR$/userMove.py" />
         <option value="$PROJECT_DIR$/classify/views.py" />
+        <option value="$PROJECT_DIR$/classify/static/lib/js/mapMove.js" />
       </list>
     </option>
   </component>
@@ -193,8 +189,7 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="13" />
     <option name="width" value="1936" />
     <option name="height" value="1176" />
   </component>
@@ -221,7 +216,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -252,6 +246,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="classify" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="si" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="si" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classify" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -323,6 +335,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -339,7 +352,7 @@
       <recent name="D:\lab\tmp\si\classify" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.userMove">
+  <component name="RunManager" selected="Python.Unnamed">
     <configuration default="false" name="wifi" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -560,7 +573,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="si" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
-      <option name="PARAMETERS" value="runserver 127.0.0.1:8888" />
+      <option name="PARAMETERS" value="runserver 127.0.0.1:8000" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
@@ -605,16 +618,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="13" y="0" width="1936" height="1176" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12869199" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20938818" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298077" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24807692" sideWeight="0.27373418" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2326923" sideWeight="0.1872363" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.06442308" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24807692" sideWeight="0.72626585" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2326923" sideWeight="0.8127637" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884616" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -648,25 +661,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="15" />
+      <option name="time" value="16" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/classify/static/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classify/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Python27/Lib/site-packages/django/middleware/csrf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -734,13 +733,23 @@
             <element signature="e#1150#1265#0" expanded="false" />
             <element signature="e#1313#1848#0" expanded="false" />
             <element signature="e#1897#2855#0" expanded="false" />
+            <element signature="e#2882#3690#0" expanded="false" />
+            <element signature="e#3716#3751#0" expanded="false" />
+            <element signature="e#3773#4277#0" expanded="false" />
+            <element signature="e#4303#4430#0" expanded="false" />
+            <element signature="e#4452#4561#0" expanded="false" />
             <element signature="e#4670#8079#0" expanded="false" />
-            <element signature="e#18241#20064#0" expanded="false" />
-            <element signature="e#20157#27651#0" expanded="false" />
-            <element signature="e#27683#29352#0" expanded="false" />
-            <element signature="e#34497#37581#0" expanded="false" />
-            <element signature="e#37613#38266#0" expanded="false" />
-            <element signature="e#38360#41746#0" expanded="false" />
+            <element signature="e#11527#18632#0" expanded="false" />
+            <element signature="e#18679#20502#0" expanded="false" />
+            <element signature="e#20595#28089#0" expanded="false" />
+            <element signature="e#28121#29790#0" expanded="false" />
+            <element signature="e#32535#33519#0" expanded="false" />
+            <element signature="e#33635#34872#0" expanded="false" />
+            <element signature="e#34935#38019#0" expanded="false" />
+            <element signature="e#38051#38704#0" expanded="false" />
+            <element signature="e#38798#42184#0" expanded="false" />
+            <element signature="e#42221#44591#0" expanded="false" />
+            <element signature="e#44678#44905#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -864,31 +873,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classify/static/lib/js/relationWiFi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="98" column="24" selection-start-line="98" selection-start-column="24" selection-end-line="98" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/read.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classify/templates/marker.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="55" />
         </state>
       </provider>
     </entry>
@@ -913,20 +901,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classify/templates/blank.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classify/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classify/static/lib/js/setDate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -945,7 +919,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="24" selection-start-line="24" selection-start-column="24" selection-end-line="24" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -953,7 +926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -961,6 +933,70 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="271" column="0" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/DATA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="168" column="114" selection-start-line="167" selection-start-column="10" selection-end-line="168" selection-end-column="114" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/mapdis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="149" column="20" selection-start-line="149" selection-start-column="20" selection-end-line="149" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pring.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.793103">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/static/lib/js/relationWiFi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="28" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/templates/blank.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.7868853">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/templates/marker.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6896552">
+          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/userMove.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -973,52 +1009,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classify/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classify/DATA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="168" column="114" selection-start-line="167" selection-start-column="10" selection-end-line="168" selection-end-column="114" />
-          <folding>
-            <element signature="e#2738#9432#0" expanded="false" />
-            <element signature="e#9457#17096#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classify/mapdis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="149" column="20" selection-start-line="149" selection-start-column="20" selection-end-line="149" selection-end-column="20" />
-          <folding>
-            <element signature="e#6501#8554#0" expanded="false" />
-            <element signature="e#8574#8740#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classify/static/lib/js/mapa.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="482" column="41" selection-start-line="482" selection-start-column="41" selection-end-line="482" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pring.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.793103">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1027,18 +1017,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/userMove.py">
+    <entry file="file://$PROJECT_DIR$/read.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/templates/move.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/static/lib/js/mapa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="495" column="43" selection-start-line="495" selection-start-column="43" selection-end-line="495" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classify/static/lib/js/mapMove.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="60" column="30" selection-start-line="60" selection-start-column="30" selection-end-line="60" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classify/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3075899">
-          <caret line="1175" column="59" selection-start-line="1175" selection-start-column="59" selection-end-line="1175" selection-end-column="59" />
+        <state vertical-scroll-proportion="0.7653194">
+          <caret line="1252" column="36" selection-start-line="1252" selection-start-column="36" selection-end-line="1252" selection-end-column="36" />
           <folding>
             <element signature="e#0#55#0" expanded="true" />
             <element signature="e#557#943#0" expanded="false" />
@@ -1046,13 +1060,23 @@
             <element signature="e#1150#1265#0" expanded="false" />
             <element signature="e#1313#1848#0" expanded="false" />
             <element signature="e#1897#2855#0" expanded="false" />
+            <element signature="e#2882#3690#0" expanded="false" />
+            <element signature="e#3716#3751#0" expanded="false" />
+            <element signature="e#3773#4277#0" expanded="false" />
+            <element signature="e#4303#4430#0" expanded="false" />
+            <element signature="e#4452#4561#0" expanded="false" />
             <element signature="e#4670#8079#0" expanded="false" />
-            <element signature="e#18241#20064#0" expanded="false" />
-            <element signature="e#20157#27651#0" expanded="false" />
-            <element signature="e#27683#29352#0" expanded="false" />
-            <element signature="e#34497#37581#0" expanded="false" />
-            <element signature="e#37613#38266#0" expanded="false" />
-            <element signature="e#38360#41746#0" expanded="false" />
+            <element signature="e#11527#18632#0" expanded="false" />
+            <element signature="e#18679#20502#0" expanded="false" />
+            <element signature="e#20595#28089#0" expanded="false" />
+            <element signature="e#28121#29790#0" expanded="false" />
+            <element signature="e#32535#33519#0" expanded="false" />
+            <element signature="e#33635#34872#0" expanded="false" />
+            <element signature="e#34935#38019#0" expanded="false" />
+            <element signature="e#38051#38704#0" expanded="false" />
+            <element signature="e#38798#42184#0" expanded="false" />
+            <element signature="e#42221#44591#0" expanded="false" />
+            <element signature="e#44678#44905#0" expanded="false" />
           </folding>
         </state>
       </provider>
