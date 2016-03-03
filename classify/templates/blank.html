@@ -23,7 +23,7 @@
         <!-- Bootstrap -->
         <script src="/static/lib/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/static/lib/js/AdminLTE/app.js" type="text/javascript"></script>
-        
+         <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
         <script>
             $.ajaxSetup({
              data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
@@ -107,8 +107,8 @@
                     <!--time choose box--> 
                      <div class="treeview-menu" onClick="YYYYMMDDstart()" style="margin-left:-20px;">
                          <ul>
-                             <li style="margin-bottom:6px;"><a href="#">开始&nbsp;&nbsp;<input type="text" name="startTime" id="startTime"  value="" onclick="timechoose('startTime')" readOnly="readOnly" style="width:130px;"/> </a></li>
-                             <li><a href="#">结束&nbsp;&nbsp;<input type="text" name="startTime" id="endTime"  value="" onclick="timechoose('endTime')" readOnly="readOnly" style="width:130px;"/> </a></li>
+                             <li style="margin-bottom:6px;"><a href="#">开始&nbsp;&nbsp;<input type="text" name="startTime" id="startTime"   onclick="timechoose('startTime')"  value="2016-01-01 10:00" style="width:130px;"/> </a></li>
+                             <li><a href="#">结束&nbsp;&nbsp;<input type="text" value="2016-01-01 14:00"name="startTime" id="endTime"   onclick="timechoose('endTime')"  style="width:130px;"/> </a></li>
                           </ul>
                      </div>
                      <div class="timechoose" id="timechoose" style="padding-top:3px;">
@@ -209,6 +209,7 @@
                         </li>                 
                         <button class="btn btn-primary" style="width:110px; background-color:#6699cc;border-color:#6699cc;margin-top:5px;"id="getinfo" onclick="chooseMode();">显示</button>
                         <button class="btn btn-primary" style="width:110px;float:right;background-color:#f99;border-color:#f99;margin-top:5px;" id="comparebt" onclick="showmap();">对比</button>
+						 <button class="btn btn-primary" style="width:220px;background-color:gray;border-color:gray;margin-top:5px;" id="heatmapBut">热力图</button>
                     </ul> <!--/.sidebar menu end-->		 
                  </section>            
             </aside><!-- /.sidebar end -->
@@ -238,8 +239,40 @@
                              <div class="tab-pane active" contenteditable="true" id="panel-855772">
                                   <div class="row">
                                       <div class="col-xs-10" style="height:900px">
-                                          <div class="legend"></div>	<!--图例框-->
-
+                                          <div class="legend">
+                                          <div id="diamonds">
+                                          	<div class='coloris' style='background-color:#006699;'></div>
+                                            <div class='coloris' style='background-color:#0099CC;'></div>
+                                            <div class='coloris' style='background-color:#339933;'></div>
+                                            <div class='coloris' style='background-color:#FFFF00;'></div>
+                                            <div class='coloris' style='background-color:#FF6600;'></div>
+                                            <div class='coloris' style='background-color:red;'></div>
+                                           </div>
+                                           <div id="levels">                                       
+                                            <!-- <p>≥-64</p>
+                                             <p>-74~-65</p>
+                                             <p>-84~-75</p>
+                                             <p>-94~-85</p>
+                                             <p>-104~-95</p>
+                                          	 <p>≤-105</p>-->
+                                          </div>	
+                                           <div id="unit1"> 
+                                             <p>dBm</p>
+                                             <p>dBm</p>
+                                             <p>dBm</p>
+                                             <p>dBm</p>
+                                             <p>dBm</p>
+                                          	 <p>dBm</p>
+                                           </div>
+                                            <div id="unit2"> 
+                                             <p>Mbps</p>
+                                             <p>Mbps</p>
+                                             <p>Mbps</p>
+                                             <p>Mbps</p>
+                                             <p>Mbps</p>
+                                          	 <p>Mbps</p>
+                                           </div>
+                                          </div><!--图例框-->
 								          <div id="allmap"></div>
                                           <div style="clear:both;"></div>
 										  <input type="button" onclick="map.clearOverlays();myLocalsearch.clearResults();" style="margin:10px 0 0;height:50px;width:100px;float:right;" value="洗刷地图" /> 
@@ -281,7 +314,7 @@
                                                 </div>
                                                 <div class="box-body chart-responsive">
                                                     <canvas id="myLineChart"  height="400" width="400"></canvas> 
-                                                    <div id="chartlegend"  class="chartlegend">
+                                                    <div  class="chartlegend">
                                                         <small><span style="float:left;width:70px;"><div class="coloris" style="background-color:#339933;border-radius:7px;opacity:1;"></div>&nbsp;移动</span>
                                                                 <span style="float:left;width:70px;"><div class="coloris" style="background-color:#993333;border-radius:7px;opacity:1;"></div>&nbsp;联通</span>
                                                                 <span style="float:left;width:70px;"><div class="coloris" style="background-color:#006699;border-radius:7px;opacity:1;"></div>&nbsp;电信</span>
@@ -296,7 +329,7 @@
                                                 </div>
                                                 <div class="box-body chart-responsive">
                                                     <canvas id="myPieChart"  height="400" width="400"></canvas> 
-                                                    <div id="chartlegend"  class="chartlegend">
+                                                    <div class="chartlegend">
                                                         <small><span style="float:left;width:70px;"><div class="coloris" style="background-color:#339933;border-radius:7px;opacity:1;"></div>&nbsp;移动</span>
                                                                 <span style="float:left;width:70px;"><div class="coloris" style="background-color:#993333;border-radius:7px;opacity:1;"></div>&nbsp;联通</span>
                                                                 <span style="float:left;width:70px;"><div class="coloris" style="background-color:#006699;border-radius:7px;opacity:1;"></div>&nbsp;电信</span>
@@ -313,7 +346,7 @@
                                                 </div>
                                                 <div class="box-body chart-responsive">
                                                       <canvas id="myBarChart"  height="400" width="400"></canvas>
-                                                      <div id="chartlegend"  class="chartlegend">
+                                                      <div class="chartlegend">
                                                          <small><span style="float:left;width:70px;"><div class="coloris" style="background-color:#339933;border-radius:7px;opacity:1;"></div>&nbsp;移动</span>
                                                                 <span style="float:left;width:70px;"><div class="coloris" style="background-color:#993333;border-radius:7px;opacity:1;"></div>&nbsp;联通</span>
                                                                 <span style="float:left;width:70px;"><div class="coloris" style="background-color:#006699;border-radius:7px;opacity:1;"></div>&nbsp;电信</span>
@@ -349,6 +382,8 @@
     </body>
 <script src="/static/lib/js/mapa.js"></script>
 <script src="/static/lib/js/mapp.js"></script>
+<script src="/static/lib/js/heatmap.js"></script>
+
 
         
 </html>

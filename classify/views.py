@@ -469,7 +469,8 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
                   }
     else:
         d_tmp = data_tmp
-    print len(d_tmp)
+    print d_tmp
+
     print 'allMapEnd'
     return d_tmp
 @csrf_protect
