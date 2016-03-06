@@ -31,7 +31,7 @@ a:focus {
 }
 
 .legend{
-	width: 110px;
+	width: 120px;
 	position:absolute;
 	right:20px;
 	padding-top:10px;
@@ -39,11 +39,14 @@ a:focus {
 	z-index: 10;
 	display: block;
 }
-.coloris{ width:15px; height:15px;float:left;opacity:0.4;}
+.coloris{ width:15px; height:15px;opacity:0.4;margin-bottom:15px;margin-left:5px;}
+#diamonds{width:25px;float:left;display:none;}
+#levels{width:95px;float:left;display:none;}
+#levels1{width:95px;float:left;display:none;}
 
 
-/*??????*/
-.lyy{position: absolute; top: 0px; height:100%;width:100%;opacity:0.6; background-color: #777;z-index: 2; left: 0px; display: none;}
+
+/*∂‘±»’÷’⁄≤„*/
 #div_show
 {
     height: 750px;
@@ -54,6 +57,7 @@ a:focus {
     z-index: 99;
 	display:none;
 	background-color:white;
+	
 }
 .div_show_title
 {
@@ -84,11 +88,9 @@ a:focus {
 #mapDiv1,#mapDiv2,#mapDiv3{
 	position:absolute;
 	height: 700px;
-
 	margin-left:0;
-	margin-top: 33px;
-	border:3px solid #FF9;
-
+	margin-top: 3px;
+	border:2px solid #6699cc;
 }
 #mapDiv1{left:0;width:48%;}
 #mapDiv3{margin-left:34%;margin-right:34%;width: 32%;}

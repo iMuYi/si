@@ -7,10 +7,11 @@
 	    var ret=getHisTime();//获取时间函数，action.js中
 		var startTime=ret.s;
 	    var endTime=ret.e;
-	var points= [];
+	var points1= [];
+	var points2=[];
 	 $.post("/classify/getSignalInfo/",
-					{"startTime":startTime,
-					 "endTime":endTime,
+					{"startTime":"2015110411112200000",//startTime,
+					 "endTime":"2016010413112200000",
 					 "operator":operator,
 					 "signal":signal,
 					 "idValue":idValue,
@@ -21,12 +22,14 @@
 						 for(var i=0;i<obj.data.length;i++){
 							tmp = obj.data[i].RSRP
 							tmp2 = parseFloat(tmp)
-							tmp3 = -tmp2
-							points.push({"lng":obj.data[i].Longitude,"lat":obj.data[i].Latitude,"count":tmp3})
+							tmp4 = -tmp2
+							tmp3 = tmp2+120
+							points1.push({"lng":obj.data[i].Longitude,"lat":obj.data[i].Latitude,"count":tmp3})
+
 							//points.push({"lng":obj.data[i].lng,"lat":obj.data[i].lat,"count":obj.data[i].count})
 
 						 }
-						alert(points)
+						//alert(points)
 						if(!isSupportCanvas()){
 							alert('热力图目前只支持有canvas支持的浏览器,您所使用的浏览器不能使用热力图功能~')
 						}
@@ -44,30 +47,25 @@
 							其中 key 表示插值的位置, 0~1.
 								value 为颜色值.
 						 */
-						heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":30});
+						 var gradient = {.0:'rgb(255, 0, 0)',
+										 .2:'rgb(255, 102, 0)',
+										 .4:'rgb(255, 225, 0)',
+										 .6:'rgb(51, 153, 51)',
+										 .8:'rgb(0, 153, 204)',
+	 	 	 							 1:'rgb(0, 153, 204)'
+						  	    		};
+
+						heatmapOverlay = new BMapLib.HeatmapOverlay({"radius":20});
 						map.addOverlay(heatmapOverlay);
-						heatmapOverlay.setDataSet({data:points,max:110});
+						heatmapOverlay.setOptions({"gradient":gradient});
+						heatmapOverlay.setDataSet({data:points1,max:120});
 						heatmapOverlay.show();
+
 					});
 
 
  } ); 
- //修改渐变样式的函数，暂时没用
-   function setGradient(){
-     	/*格式如下所示:
-		{
-	  		0:'rgb(102, 255, 0)',
-	 	 	.5:'rgb(255, 170, 0)',
-		  	1:'rgb(255, 0, 0)'
-		}*/
-     	var gradient = {};
-     	var colors = document.querySelectorAll("input[type='color']");
-     	colors = [].slice.call(colors,0);
-     	colors.forEach(function(ele){
-			gradient[ele.getAttribute("data-key")] = ele.value; 
-     	});
-        heatmapOverlay.setOptions({"gradient":gradient});
-    }
+ 
 	//判断浏览区是否支持canvas
     function isSupportCanvas(){
         var elem = document.createElement('canvas');

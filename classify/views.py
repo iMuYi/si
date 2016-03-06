@@ -462,14 +462,14 @@ def allMap(operator, signal, zoom, lng1, lat1, lng2, lat2, startTime, endTime, f
 
 
     if flag == 1:
-         d_tmp = {'data': data_tmp,
+         d_tmp = {'data': usefulInfo,
                   'meanRSRP': meanRSRP,
                   'meanTx': meanTx,
                   'meanRx': meanRx,
                   }
     else:
         d_tmp = data_tmp
-    print d_tmp
+    #print d_tmp
 
     print 'allMapEnd'
     return d_tmp
